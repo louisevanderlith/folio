@@ -1,8 +1,8 @@
 package controllers
 
 import (
+	"github.com/louisevanderlith/folio/core"
 	"github.com/louisevanderlith/mango/control"
-	"github.com/louisevanderlith/mango/folio/core"
 )
 
 type HeaderController struct {
