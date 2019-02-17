@@ -1,8 +1,7 @@
 package controllers
 
 import (
-	"github.com/louisevanderlith/mango/core/folio"
-	"github.com/louisevanderlith/mango/pkg/control"
+	"github.com/louisevanderlith/mango/control"
 )
 
 type PortfolioController struct {

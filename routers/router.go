@@ -8,42 +8,27 @@
 package routers
 
 import (
-	"github.com/louisevanderlith/mango/api/folio/controllers"
-	"github.com/louisevanderlith/mango/pkg"
+	"github.com/louisevanderlith/folio/controllers"
+	"github.com/louisevanderlith/mango"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/plugins/cors"
-	"github.com/louisevanderlith/mango/pkg/control"
-	"github.com/louisevanderlith/mango/pkg/enums"
+	"github.com/louisevanderlith/mango/control"
+	"github.com/louisevanderlith/mango/enums"
 )
 
 func Setup(s *mango.Service) {
 	ctrlmap := EnableFilters(s)
 
-	ns := beego.NewNamespace("/v1",
-		beego.NSNamespace("/profile",
-			beego.NSInclude(
-				controllers.NewProfileCtrl(ctrlmap),
-			),
-		),
-		beego.NSNamespace("/profile/header",
-			beego.NSInclude(
-				controllers.NewHeaderCtrl(ctrlmap),
-			),
-		),
-		beego.NSNamespace("/profile/portfolio",
-			beego.NSInclude(
-				controllers.NewPortfolioCtrl(ctrlmap),
-			),
-		),
-		beego.NSNamespace("/profile/social",
-			beego.NSInclude(
-				controllers.NewSocialCtrl(ctrlmap),
-			),
-		),
-	)
+	profCtrl := controllers.NewProfileCtrl(ctrlmap)
 
-	beego.AddNamespace(ns)
+	beego.Router("/v1/profile", profCtrl, "post:Post;put:Put")
+	beego.Router("/v1/profile/header", controllers.NewHeaderCtrl(ctrlmap), "post:Post")
+	beego.Router("/v1/profile/portfolio", controllers.NewPortfolioCtrl(ctrlmap), "post:Post")
+	beego.Router("/v1/profile/social", controllers.NewSocialCtrl(ctrlmap), "post:Post")
+
+	beego.Router("/v1/profile/:site", profCtrl, "get:GetOne")
+	beego.Router("/v1/profile/all/:pagesize", profCtrl, "get:Get")
 }
 
 func EnableFilters(s *mango.Service) *control.ControllerMap {

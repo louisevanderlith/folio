@@ -6,8 +6,8 @@ import (
 
 	"github.com/louisevanderlith/husk"
 
-	"github.com/louisevanderlith/mango/core/folio"
-	"github.com/louisevanderlith/mango/pkg/control"
+	"github.com/louisevanderlith/mango/control"
+	"github.com/louisevanderlith/mango/folio/core"
 )
 
 type ProfileController struct {
@@ -23,11 +23,11 @@ func NewProfileCtrl(ctrlMap *control.ControllerMap) *ProfileController {
 
 // @Title GetSites
 // @Description Gets all sites
-// @Success 200 {[]folio.Profile} []folio.Portfolio]
+// @Success 200 {[]core.Profile} []core.Portfolio]
 // @router /all/:pagesize [get]
 func (req *ProfileController) Get() {
 	page, size := req.GetPageData()
-	results := folio.GetProfiles(page, size)
+	results := core.GetProfiles(page, size)
 	log.Printf("Profiles: %#v\n", results)
 	req.Serve(results, nil)
 }
@@ -35,7 +35,7 @@ func (req *ProfileController) Get() {
 // @Title GetSite
 // @Description Gets customer website/profile
 // @Param	site			path	string 	true		"customer website name OR ID"
-// @Success 200 {folio.Profile} folio.Profile
+// @Success 200 {core.Profile} core.Profile
 // @router /:site [get]
 func (req *ProfileController) GetOne() {
 	siteParam := req.Ctx.Input.Param(":site")
@@ -43,12 +43,12 @@ func (req *ProfileController) GetOne() {
 	key, err := husk.ParseKey(siteParam)
 
 	if err != nil && key == nil {
-		byName, err := folio.GetProfileByName(siteParam)
+		byName, err := core.GetProfileByName(siteParam)
 		req.Serve(byName, err)
 		return
 	}
 
-	result, err := folio.GetProfile(key)
+	result, err := core.GetProfile(key)
 
 	req.Serve(result, err)
 }
@@ -60,7 +60,7 @@ func (req *ProfileController) GetOne() {
 // @Failure 403 body is empty
 // @router / [post]
 func (req *ProfileController) Post() {
-	var site folio.Profile
+	var site core.Profile
 	json.Unmarshal(req.Ctx.Input.RequestBody, &site)
 
 	rec := site.Create()
@@ -70,7 +70,7 @@ func (req *ProfileController) Post() {
 
 // @Title UpdateWebsite
 // @Description Updates a Website
-// @Param	body		body 	folio.Profile	true		"body for service content"
+// @Param	body		body 	core.Profile	true		"body for service content"
 // @Success 200 {map[string]string} map[string]string
 // @Failure 403 body is empty
 // @router / [put]
@@ -82,7 +82,7 @@ func (req *ProfileController) Put() {
 		return
 	}
 
-	body := with.Body.(folio.Profile)
+	body := with.Body.(core.Profile)
 	err = body.Update(with.Key)
 
 	req.Serve(nil, err)
