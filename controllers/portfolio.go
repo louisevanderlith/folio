@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"github.com/louisevanderlith/folio/core"
 	"github.com/louisevanderlith/mango/control"
 )
 
@@ -17,7 +18,7 @@ func NewPortfolioCtrl(ctrlMap *control.ControllerMap) *PortfolioController {
 
 // @Title CreatePortfolioItem
 // @Description Creates a Portfolio Item on a current site
-// @Param	body		body 	folio.Portfolio	true		"body for service content"
+// @Param	body		body 	core.Portfolio	true		"body for service content"
 // @Success 200 {map[string]string} map[string]string
 // @Failure 403 body is empty
 // @router / [post]
@@ -29,7 +30,7 @@ func (req *PortfolioController) Post() {
 		return
 	}
 
-	err = folio.AddPortfolioSection(with.Key, with.Body.(folio.Portfolio))
+	err = core.AddPortfolioSection(with.Key, with.Body.(core.Portfolio))
 
 	req.Serve(nil, err)
 }

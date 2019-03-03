@@ -3,7 +3,7 @@ package core
 import "github.com/louisevanderlith/husk"
 
 type Header struct {
-	ImageKey *husk.Key `hsk:"null"`
+	ImageKey husk.Key `hsk:"null"`
 	Heading  string    `hsk:"size(50)" json:",omitempty"`
 	Text     string    `hsk:"size(1024)" json:",omitempty"`
 }

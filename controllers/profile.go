@@ -6,8 +6,8 @@ import (
 
 	"github.com/louisevanderlith/husk"
 
+	"github.com/louisevanderlith/folio/core"
 	"github.com/louisevanderlith/mango/control"
-	"github.com/louisevanderlith/mango/folio/core"
 )
 
 type ProfileController struct {
@@ -42,7 +42,7 @@ func (req *ProfileController) GetOne() {
 
 	key, err := husk.ParseKey(siteParam)
 
-	if err != nil && key == nil {
+	if err != nil {
 		byName, err := core.GetProfileByName(siteParam)
 		req.Serve(byName, err)
 		return

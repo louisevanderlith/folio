@@ -2,22 +2,18 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/louisevanderlith/folio/routers"
 	"github.com/louisevanderlith/mango"
 	"github.com/louisevanderlith/mango/enums"
 
 	"github.com/astaxie/beego"
-	_ "github.com/louisevanderlith/mango/core/folio"
+	_ "github.com/louisevanderlith/folio/core"
 )
 
 func main() {
-	mode := beego.BConfig.RunMode
-
-	if mode == "dev" {
-		beego.BConfig.WebConfig.DirectoryIndex = true
-		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
-	}
+	mode := os.Getenv("RUNMODE")
 
 	// Register with router
 	appName := beego.BConfig.AppName
