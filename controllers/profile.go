@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"log"
 
 	"github.com/louisevanderlith/husk"
 
@@ -28,7 +27,7 @@ func NewProfileCtrl(ctrlMap *control.ControllerMap) *ProfileController {
 func (req *ProfileController) Get() {
 	page, size := req.GetPageData()
 	results := core.GetProfiles(page, size)
-	log.Printf("Profiles: %#v\n", results)
+
 	req.Serve(results, nil)
 }
 

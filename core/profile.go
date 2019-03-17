@@ -8,7 +8,7 @@ type Profile struct {
 	ContactEmail   string       `hsk:"size(128)" json:",omitempty"`
 	ContactPhone   string       `hsk:"size(20)" json:",omitempty"`
 	URL            string       `hsk:"size(128)" json:",omitempty"`
-	ImageID        int64        `hsk:"null"`
+	ImageKey       husk.Key     `hsk:"null"`
 	SocialLinks    []SocialLink `json:",omitempty"`
 	PortfolioItems []Portfolio  `json:",omitempty"`
 	AboutSections  []string     `json:",omitempty"`
@@ -21,7 +21,7 @@ func (p Profile) Valid() (bool, error) {
 
 func getProfile(key husk.Key) (husk.Recorder, error) {
 	return ctx.Profiles.FindByKey(key)
-}
+} 
 
 func getProfileByName(name string) (husk.Recorder, error) {
 	return ctx.Profiles.FindFirst(byName(name))
