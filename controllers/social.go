@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"github.com/louisevanderlith/mango/core/folio"
-	"github.com/louisevanderlith/mango/pkg/control"
+	"github.com/louisevanderlith/folio/core"
+	"github.com/louisevanderlith/mango/control"
 )
 
 type SocialController struct {
@@ -18,7 +18,7 @@ func NewSocialCtrl(ctrlMap *control.ControllerMap) *SocialController {
 
 // @Title CreateSocialLink
 // @Description Creates a Social Link on a current site
-// @Param	body		body 	folio.SocialLink	true		"body for service content"
+// @Param	body		body 	core.SocialLink	true		"body for service content"
 // @Success 200 {map[string]string} map[string]string
 // @Failure 403 body is empty
 // @router / [post]
@@ -30,7 +30,7 @@ func (req *SocialController) Post() {
 		return
 	}
 
-	err = folio.AddSocialLink(with.Key, with.Body.(folio.SocialLink))
+	err = core.AddSocialLink(with.Key, with.Body.(core.SocialLink))
 
 	req.Serve(nil, err)
 }

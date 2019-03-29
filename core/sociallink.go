@@ -1,8 +1,6 @@
-package folio
+package core
 
-import (
-	"github.com/louisevanderlith/mango/pkg"
-)
+import "github.com/louisevanderlith/mango"
 
 type SocialLink struct {
 	Icon string `hsk:"size(25)"`
@@ -10,5 +8,5 @@ type SocialLink struct {
 }
 
 func (o SocialLink) Valid() (bool, error) {
-	return util.ValidateStruct(&o)
+	return mango.ValidateStruct(&o)
 }

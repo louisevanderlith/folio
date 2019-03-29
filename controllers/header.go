@@ -1,8 +1,9 @@
+// @Success 200 {map[string]string} map[string]string
 package controllers
 
 import (
-	"github.com/louisevanderlith/mango/core/folio"
-	"github.com/louisevanderlith/mango/pkg/control"
+	"github.com/louisevanderlith/folio/core"
+	"github.com/louisevanderlith/mango/control"
 )
 
 type HeaderController struct {
@@ -18,7 +19,7 @@ func NewHeaderCtrl(ctrlMap *control.ControllerMap) *HeaderController {
 
 // @Title CreateHeaderItem
 // @Description Creates a Portfolio Item on a current site
-// @Param	body		body 	folio.Portfolio	true		"body for service content"
+// @Param	body		body 	core.Portfolio	true		"body for service content"
 // @Success 200 {map[string]string} map[string]string
 // @Failure 403 body is empty
 // @router / [post]
@@ -30,7 +31,7 @@ func (req *HeaderController) Post() {
 		return
 	}
 
-	err = folio.AddHeaderSection(with.Key, with.Body.(folio.Header))
+	err = core.AddHeaderSection(with.Key, with.Body.(core.Header))
 
 	req.Serve(nil, err)
 }

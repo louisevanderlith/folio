@@ -1,4 +1,4 @@
-package folio
+package core
 
 import (
 	"github.com/louisevanderlith/husk"

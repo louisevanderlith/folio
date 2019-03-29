@@ -1,4 +1,4 @@
-package folio
+package core
 
 import "github.com/louisevanderlith/husk"
 
@@ -8,7 +8,7 @@ type Profile struct {
 	ContactEmail   string       `hsk:"size(128)" json:",omitempty"`
 	ContactPhone   string       `hsk:"size(20)" json:",omitempty"`
 	URL            string       `hsk:"size(128)" json:",omitempty"`
-	ImageID        int64        `hsk:"null"`
+	ImageKey       husk.Key     `hsk:"null"`
 	SocialLinks    []SocialLink `json:",omitempty"`
 	PortfolioItems []Portfolio  `json:",omitempty"`
 	AboutSections  []string     `json:",omitempty"`
@@ -19,15 +19,15 @@ func (p Profile) Valid() (bool, error) {
 	return husk.ValidateStruct(&p)
 }
 
-func getProfile(key *husk.Key) (husk.Recorder, error) {
+func getProfile(key husk.Key) (husk.Recorder, error) {
 	return ctx.Profiles.FindByKey(key)
-}
+} 
 
 func getProfileByName(name string) (husk.Recorder, error) {
 	return ctx.Profiles.FindFirst(byName(name))
 }
 
-func GetProfile(key *husk.Key) (*Profile, error) {
+func GetProfile(key husk.Key) (*Profile, error) {
 	rec, err := getProfile(key)
 
 	if err != nil {
@@ -55,7 +55,7 @@ func (p Profile) Create() husk.CreateSet {
 	return ctx.Profiles.Create(p)
 }
 
-func (p Profile) Update(key *husk.Key) error {
+func (p Profile) Update(key husk.Key) error {
 	profile, err := getProfile(key)
 
 	if err != nil {
@@ -67,7 +67,7 @@ func (p Profile) Update(key *husk.Key) error {
 	return ctx.Profiles.Update(profile)
 }
 
-func AddSocialLink(key *husk.Key, socialLink SocialLink) error {
+func AddSocialLink(key husk.Key, socialLink SocialLink) error {
 	prRec, err := getProfile(key)
 
 	if err != nil {
@@ -80,7 +80,7 @@ func AddSocialLink(key *husk.Key, socialLink SocialLink) error {
 	return ctx.Profiles.Update(prRec)
 }
 
-func AddHeaderSection(key *husk.Key, header Header) error {
+func AddHeaderSection(key husk.Key, header Header) error {
 	prRec, err := getProfile(key)
 
 	if err != nil {
@@ -93,7 +93,7 @@ func AddHeaderSection(key *husk.Key, header Header) error {
 	return ctx.Profiles.Update(prRec)
 }
 
-func AddPortfolioSection(key *husk.Key, portfolio Portfolio) error {
+func AddPortfolioSection(key husk.Key, portfolio Portfolio) error {
 	prRec, err := getProfile(key)
 
 	if err != nil {
