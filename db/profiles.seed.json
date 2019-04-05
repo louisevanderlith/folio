@@ -1,0 +1,35 @@
+[{
+    "Title": "avosa",
+    "ContactEmail": "info@avosa.co.za",
+    "Description": "We're a software development company specialising in the Automotive and Transport industry. ",
+    "ContactPhone": "0893523423",
+    "URL": "https://www.localhost",
+    "PortfolioItems": [
+        {
+            "Name": "Cars",
+            "URL": "https://cars.localhost"
+        },
+        {
+            "Name": "Admin",
+            "URL": "https://admin.localhost"
+        },
+        {
+            "Name": "Logbook",
+            "URL": "https://logbook.localhost"
+        },
+        {
+            "Name": "Shop",
+            "URL": "https://shop.localhost"
+        }
+    ],
+    "SocialLinks": [
+        {
+            "Icon": "fa-facebook",
+            "URL": "https://www.facebook.com/avosasoftware"
+        },
+        {
+            "Icon": "fa-twitter",
+            "URL": "https://twitter.com/avosasoftware"
+        }
+    ]
+}]

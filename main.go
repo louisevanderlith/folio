@@ -9,11 +9,14 @@ import (
 	"github.com/louisevanderlith/mango/enums"
 
 	"github.com/astaxie/beego"
-	_ "github.com/louisevanderlith/folio/core"
+	"github.com/louisevanderlith/folio/core"
 )
 
 func main() {
 	mode := os.Getenv("RUNMODE")
+
+	core.CreateContext()
+	defer core.Shutdown()
 
 	// Register with router
 	appName := beego.BConfig.AppName

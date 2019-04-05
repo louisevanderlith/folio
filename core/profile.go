@@ -11,7 +11,6 @@ type Profile struct {
 	ImageKey       husk.Key     `hsk:"null"`
 	SocialLinks    []SocialLink `json:",omitempty"`
 	PortfolioItems []Portfolio  `json:",omitempty"`
-	AboutSections  []string     `json:",omitempty"`
 	Headers        []Header     `json:",omitempty"`
 }
 
@@ -21,7 +20,7 @@ func (p Profile) Valid() (bool, error) {
 
 func getProfile(key husk.Key) (husk.Recorder, error) {
 	return ctx.Profiles.FindByKey(key)
-} 
+}
 
 func getProfileByName(name string) (husk.Recorder, error) {
 	return ctx.Profiles.FindFirst(byName(name))
