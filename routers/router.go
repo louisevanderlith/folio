@@ -23,9 +23,6 @@ func Setup(s *mango.Service) {
 	profCtrl := controllers.NewProfileCtrl(ctrlmap)
 
 	beego.Router("/v1/profile", profCtrl, "post:Post;put:Put")
-	beego.Router("/v1/profile/header", controllers.NewHeaderCtrl(ctrlmap), "post:Post")
-	beego.Router("/v1/profile/portfolio", controllers.NewPortfolioCtrl(ctrlmap), "post:Post")
-	beego.Router("/v1/profile/social", controllers.NewSocialCtrl(ctrlmap), "post:Post")
 
 	beego.Router("/v1/profile/:site", profCtrl, "get:GetOne")
 	beego.Router("/v1/profile/all/:pagesize", profCtrl, "get:Get")
@@ -39,10 +36,6 @@ func EnableFilters(s *mango.Service) *control.ControllerMap {
 	emptyMap["PUT"] = enums.Owner
 
 	ctrlmap.Add("/profile", emptyMap)
-	ctrlmap.Add("profile/about", emptyMap)
-	ctrlmap.Add("profile/header", emptyMap)
-	ctrlmap.Add("profile/portfolio", emptyMap)
-	ctrlmap.Add("profile/social", emptyMap)
 
 	beego.InsertFilter("/*", beego.BeforeRouter, ctrlmap.FilterAPI)
 

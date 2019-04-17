@@ -74,15 +74,15 @@ func (req *ProfileController) Post() {
 // @Failure 403 body is empty
 // @router / [put]
 func (req *ProfileController) Put() {
-	with, err := req.GetKeyedRequest()
+	body := &core.Profile{}
+	key, err := req.GetKeyedRequest(body)
 
 	if err != nil {
 		req.Serve(nil, err)
 		return
 	}
 
-	body := with.Body.(core.Profile)
-	err = body.Update(with.Key)
+	err = body.Update(key)
 
 	req.Serve(nil, err)
 }
