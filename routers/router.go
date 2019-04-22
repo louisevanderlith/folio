@@ -14,7 +14,8 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/plugins/cors"
 	"github.com/louisevanderlith/mango/control"
-	"github.com/louisevanderlith/mango/enums"
+	secure "github.com/louisevanderlith/secure/core"
+	"github.com/louisevanderlith/secure/core/roletype"
 )
 
 func Setup(s *mango.Service) {
@@ -31,9 +32,9 @@ func Setup(s *mango.Service) {
 func EnableFilters(s *mango.Service) *control.ControllerMap {
 	ctrlmap := control.CreateControlMap(s)
 
-	emptyMap := make(control.ActionMap)
-	emptyMap["POST"] = enums.Owner
-	emptyMap["PUT"] = enums.Owner
+	emptyMap := make(secure.ActionMap)
+	emptyMap["POST"] = roletype.Owner
+	emptyMap["PUT"] = roletype.Owner
 
 	ctrlmap.Add("/profile", emptyMap)
 
