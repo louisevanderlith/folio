@@ -24,7 +24,6 @@ func Setup(s *mango.Service) {
 	profCtrl := controllers.NewProfileCtrl(ctrlmap)
 
 	beego.Router("/v1/profile", profCtrl, "post:Post;put:Put")
-
 	beego.Router("/v1/profile/:site", profCtrl, "get:GetOne")
 	beego.Router("/v1/profile/all/:pagesize", profCtrl, "get:Get")
 }
@@ -36,16 +35,16 @@ func EnableFilters(s *mango.Service) *control.ControllerMap {
 	emptyMap["POST"] = roletype.Owner
 	emptyMap["PUT"] = roletype.Owner
 
-	ctrlmap.Add("/profile", emptyMap)
+	ctrlmap.Add("/v1/profile", emptyMap)
 
-	beego.InsertFilter("/*", beego.BeforeRouter, ctrlmap.FilterAPI)
+	beego.InsertFilter("/v1/*", beego.BeforeRouter, ctrlmap.FilterAPI, false)
 
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
 		AllowAllOrigins: true,
 		AllowMethods:    []string{"GET", "POST", "PUT", "OPTIONS"},
 		AllowHeaders:    []string{"Origin", "Authorization", "Access-Control-Allow-Origin", "Content-Type"},
 		ExposeHeaders:   []string{"Content-Length", "Access-Control-Allow-Origin"},
-	}))
+	}), false)
 
 	return ctrlmap
 }
