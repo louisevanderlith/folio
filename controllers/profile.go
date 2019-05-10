@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"net/http"
 
 	"github.com/louisevanderlith/husk"
 
@@ -28,7 +29,7 @@ func (req *ProfileController) Get() {
 	page, size := req.GetPageData()
 	results := core.GetProfiles(page, size)
 
-	req.Serve(results, nil)
+	req.Serve(http.StatusOK, nil, results)
 }
 
 // @Title GetSite
@@ -43,13 +44,24 @@ func (req *ProfileController) GetOne() {
 
 	if err != nil {
 		byName, err := core.GetProfileByName(siteParam)
-		req.Serve(byName, err)
+
+		if err != nil {
+			req.Serve(http.StatusNotFound, err, nil)
+			return
+		}
+
+		req.Serve(http.StatusOK, nil, byName)
 		return
 	}
 
 	result, err := core.GetProfile(key)
 
-	req.Serve(result, err)
+	if err != nil {
+		req.Serve(http.StatusNotFound, err, nil)
+		return
+	}
+
+	req.Serve(http.StatusOK, nil, result)
 }
 
 // @Title RegisterWebsite
@@ -60,11 +72,16 @@ func (req *ProfileController) GetOne() {
 // @router / [post]
 func (req *ProfileController) Post() {
 	var site core.Profile
-	json.Unmarshal(req.Ctx.Input.RequestBody, &site)
+	err := json.Unmarshal(req.Ctx.Input.RequestBody, &site)
+
+	if err != nil {
+		req.Serve(http.StatusBadRequest, err, nil)
+		return
+	}
 
 	rec := site.Create()
 
-	req.Serve(rec, nil)
+	req.Serve(http.StatusOK, nil, rec)
 }
 
 // @Title UpdateWebsite
@@ -78,11 +95,16 @@ func (req *ProfileController) Put() {
 	key, err := req.GetKeyedRequest(body)
 
 	if err != nil {
-		req.Serve(nil, err)
+		req.Serve(http.StatusBadRequest, err, nil)
 		return
 	}
 
 	err = body.Update(key)
 
-	req.Serve(nil, err)
+	if err != nil {
+		req.Serve(http.StatusNotFound, err, nil)
+		return
+	}
+
+	req.Serve(http.StatusOK, nil, nil)
 }
