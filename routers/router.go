@@ -45,7 +45,7 @@ func EnableFilters(s *mango.Service, host string) *control.ControllerMap {
 
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
 		AllowOrigins: []string{allowed},
-		AllowMethods: []string{"GET", "POST", "OPTIONS"},
+		AllowMethods: []string{"GET", "PUT", "POST", "OPTIONS"},
 	}), false)
 
 	return ctrlmap
