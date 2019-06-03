@@ -1,10 +1,3 @@
-// @APIVersion 1.0.0
-// @Title Folio API
-// @Description API to control Portfolios
-// @Contact astaxie@gmail.com
-// @TermsOfServiceUrl http://beego.me/
-// @License Apache 2.0
-// @LicenseUrl http://www.apache.org/licenses/LICENSE-2.0.html
 package routers
 
 import (
@@ -45,7 +38,7 @@ func EnableFilters(s *mango.Service, host string) *control.ControllerMap {
 
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
 		AllowOrigins: []string{allowed},
-		AllowMethods: []string{"GET", "POST", "OPTIONS"},
+		AllowMethods: []string{"GET", "PUT", "POST", "OPTIONS"},
 	}), false)
 
 	return ctrlmap

@@ -6,7 +6,7 @@ The Folio API controls profile information services.
 ## Run with Docker
 * $ docker build -t avosa/folio:dev .
 * $ docker rm FolioDEV
-* $ docker run -d -e RUNMODE=DEV -p 8090:8090 -v db/:/db/ --network mango_net --name FolioDEV avosa/folio:dev 
+* $ docker run -d -p 8090:8090 -v db/:/db/ --network mango_net --name FolioDEV avosa/folio:dev 
 * $ docker logs FolioDEV
 
 ### Folio API Exposes the following Endpoints
