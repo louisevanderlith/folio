@@ -9,6 +9,7 @@ type Profile struct {
 	ContactPhone   string       `hsk:"size(20)" json:",omitempty"`
 	URL            string       `hsk:"size(128)" json:",omitempty"`
 	ImageKey       husk.Key     `hsk:"null"`
+	GTag           string       `hsk:"size(14)"`
 	SocialLinks    []SocialLink `json:",omitempty"`
 	PortfolioItems []Portfolio  `json:",omitempty"`
 	Headers        []Header     `json:",omitempty"`
@@ -61,7 +62,11 @@ func (p Profile) Update(key husk.Key) error {
 		return err
 	}
 
-	profile.Set(p)
+	err = profile.Set(p)
+
+	if err != nil {
+		return err
+	}
 
 	defer ctx.Profiles.Save()
 	return ctx.Profiles.Update(profile)
