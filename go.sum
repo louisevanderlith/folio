@@ -36,6 +36,8 @@ github.com/louisevanderlith/husk v0.6.21 h1:FaQCIlsbGH3B2QVHgS6TrJxEr7xeMYTcpiLM
 github.com/louisevanderlith/husk v0.6.21/go.mod h1:FiREVNZW48kA++iCekTEqFLcpe1m31+FQhd1ePm0YLA=
 github.com/louisevanderlith/husk v0.6.23 h1:Hw/K4UGoZbwfVb+w3LHXcRBUS2Mg+hvestydig+jqAU=
 github.com/louisevanderlith/husk v0.6.23/go.mod h1:FiREVNZW48kA++iCekTEqFLcpe1m31+FQhd1ePm0YLA=
+github.com/louisevanderlith/husk v0.6.25 h1:QfO71voenofBx8DC0pw8f1zy/S5fHfiBIY5oN/cnTbE=
+github.com/louisevanderlith/husk v0.6.25/go.mod h1:FiREVNZW48kA++iCekTEqFLcpe1m31+FQhd1ePm0YLA=
 github.com/louisevanderlith/mango v0.2.22/go.mod h1:+9RvCkch8S6Tt+EV1pdAUCqh8r0jDdh0L+pYrX8QrcY=
 github.com/louisevanderlith/mango v0.3.0/go.mod h1:CSXBSKgEpjBpO4F1C+t/n0ZGpteqcb3f4x/ISRbSqlQ=
 github.com/louisevanderlith/mango v0.3.1 h1:ZaDYkr859Pykhv/eCuF8Hc3qyGvQYIBaMrquuEmDi+o=
@@ -47,8 +49,8 @@ github.com/louisevanderlith/mango v0.3.50 h1:yzvD+FN6lnCL7RaHjwaAXYn0Ys2kRrsMk+/
 github.com/louisevanderlith/mango v0.3.50/go.mod h1:bG1auEUQrEdXVsJvBN1yS4p4XrlAKWfVr+FlDI4jKdc=
 github.com/louisevanderlith/mango v0.3.55 h1:QBgDFwx72dKfNB/Z5cDiVaUhfAnvIV2J9s6caVBTvoE=
 github.com/louisevanderlith/mango v0.3.55/go.mod h1:bG1auEUQrEdXVsJvBN1yS4p4XrlAKWfVr+FlDI4jKdc=
-github.com/louisevanderlith/mango v0.3.61 h1:7Oy/lgQlxucvVkRMDD1myjFG/i29S69CTn7g9dQ5/Vc=
-github.com/louisevanderlith/mango v0.3.61/go.mod h1:88jUV1OLHATw8+4G4burzQn3kht1NNHSbb0ecaQ6kbE=
+github.com/louisevanderlith/mango v0.3.62 h1:cQEU8nPkvUtd/xlw9KFVer3SgG0aF7QaIRX9gkK27ZE=
+github.com/louisevanderlith/mango v0.3.62/go.mod h1:RDGLU1NLhY3bhLxUm6FwoVayH1ePpoa5nXMPqEiGlFg=
 github.com/louisevanderlith/secure v0.0.0-20190405144636-b7fb199bb689/go.mod h1:r8RUEvDA4onIU4FxTbJNVcszOquBhE7EgVA6iq7Ln98=
 github.com/louisevanderlith/secure v0.1.0/go.mod h1:M0cpImwBIehj7GqvN6WC1z3kiv98mjTiwngopuVvKHY=
 github.com/louisevanderlith/secure v0.1.1 h1:KJKIomoG3TZDUvyzrSAbnytpFY2YGWsen6GiQEdg0Dw=
@@ -57,6 +59,8 @@ github.com/louisevanderlith/secure v0.1.12 h1:F7yOKUKEuErZo4iqFYiu2R8r8ClMRFtEpH
 github.com/louisevanderlith/secure v0.1.12/go.mod h1:cC83UP+7JpdYwt358I6EvcA2BmuBRNej2t4gZKNKVDs=
 github.com/louisevanderlith/secure v0.1.14 h1:Dfg3O1boZn2yDWxK+BSMVnQY7dN6UgBXvtpIU/yQwLA=
 github.com/louisevanderlith/secure v0.1.14/go.mod h1:9127VJrIuuEP6FR337TKZifA2I5R41yrWbqo4sPuf0Y=
+github.com/louisevanderlith/secure v0.1.16 h1:fWA9AQNYvIjylFNSNsiftZSl0AgOyKRofAcgwNekCLI=
+github.com/louisevanderlith/secure v0.1.16/go.mod h1:AfCNunss2kZIZ8wp9DJIvhCBJU3gFZBx0UDaefSPfzI=
 github.com/mattn/go-sqlite3 v1.10.0/go.mod h1:FPy6KqzDD04eiIsT53CuJW3U88zkxoIYsOqkbpncsNc=
 github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d/go.mod h1:YUTz3bUH2ZwIWBy3CJBeOBEugqcmXREj14T+iG/4k4U=
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=
