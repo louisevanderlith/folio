@@ -81,6 +81,11 @@ func (req *ProfileController) Post() {
 
 	rec := site.Create()
 
+	if rec.Error != nil {
+		req.Serve(http.StatusInternalServerError, rec.Error, nil)
+		return
+	}
+
 	req.Serve(http.StatusOK, nil, rec)
 }
 
