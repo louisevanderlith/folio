@@ -1,24 +1,16 @@
 package controllers
 
 import (
-	"encoding/json"
 	"net/http"
 
+	"github.com/louisevanderlith/droxolite/xontrols"
 	"github.com/louisevanderlith/husk"
 
 	"github.com/louisevanderlith/folio/core"
-	"github.com/louisevanderlith/mango/control"
 )
 
 type ProfileController struct {
-	control.APIController
-}
-
-func NewProfileCtrl(ctrlMap *control.ControllerMap) *ProfileController {
-	result := &ProfileController{}
-	result.SetInstanceMap(ctrlMap)
-
-	return result
+	xontrols.APICtrl
 }
 
 // @Title GetSites
@@ -38,7 +30,7 @@ func (req *ProfileController) Get() {
 // @Success 200 {core.Profile} core.Profile
 // @router /:site [get]
 func (req *ProfileController) GetOne() {
-	siteParam := req.Ctx.Input.Param(":site")
+	siteParam := req.Ctx.FindParam("site")
 
 	key, err := husk.ParseKey(siteParam)
 
@@ -72,7 +64,7 @@ func (req *ProfileController) GetOne() {
 // @router / [post]
 func (req *ProfileController) Post() {
 	var site core.Profile
-	err := json.Unmarshal(req.Ctx.Input.RequestBody, &site)
+	err := req.Ctx.Body(&site)
 
 	if err != nil {
 		req.Serve(http.StatusBadRequest, err, nil)
@@ -80,6 +72,11 @@ func (req *ProfileController) Post() {
 	}
 
 	rec := site.Create()
+
+	if rec.Error != nil {
+		req.Serve(http.StatusInternalServerError, rec.Error, nil)
+		return
+	}
 
 	req.Serve(http.StatusOK, nil, rec)
 }

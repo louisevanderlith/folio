@@ -12,5 +12,6 @@
 *.out
 
 folio
-db/
+
+db/*.husk
 !db/*.seed.json
