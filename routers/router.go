@@ -1,29 +1,31 @@
 package routers
 
 import (
-	"fmt"
-	"strings"
-
+	"github.com/louisevanderlith/droxolite"
 	"github.com/louisevanderlith/folio/controllers"
-	"github.com/louisevanderlith/mango"
 
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/plugins/cors"
-	"github.com/louisevanderlith/mango/control"
-	secure "github.com/louisevanderlith/secure/core"
-	"github.com/louisevanderlith/secure/core/roletype"
+	"github.com/louisevanderlith/droxolite/roletype"
 )
 
-func Setup(s *mango.Service, host string) {
-	ctrlmap := EnableFilters(s, host)
+func Setup(poxy *droxolite.Epoxy) {
+	//Profile
+	profCtrl := &controllers.ProfileController{}
+	profGroup := droxolite.NewRouteGroup("profile", profCtrl)
+	profGroup.AddRoute("/", "PUT", roletype.Unknown, profCtrl.Put)
+	profGroup.AddRoute("/{site:[a-zA-Z]+}", "GET", roletype.Admin, profCtrl.GetOne)
+	profGroup.AddRoute("/all/{pagesize:[A-Z][0-9]+}", "GET", roletype.Admin, profCtrl.Get)
+	poxy.AddGroup(profGroup)
+
+	/*ctrlmap := EnableFilters(s, host)
 
 	profCtrl := controllers.NewProfileCtrl(ctrlmap)
 
 	beego.Router("/v1/profile", profCtrl, "post:Post;put:Put")
 	beego.Router("/v1/profile/:site", profCtrl, "get:GetOne")
-	beego.Router("/v1/profile/all/:pagesize", profCtrl, "get:Get")
+	beego.Router("/v1/profile/all/:pagesize", profCtrl, "get:Get")*/
 }
 
+/*
 func EnableFilters(s *mango.Service, host string) *control.ControllerMap {
 	ctrlmap := control.CreateControlMap(s)
 
@@ -43,3 +45,4 @@ func EnableFilters(s *mango.Service, host string) *control.ControllerMap {
 
 	return ctrlmap
 }
+*/
