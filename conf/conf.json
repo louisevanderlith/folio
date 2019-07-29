@@ -1,5 +1,4 @@
 {
     "Appname": "Folio.API",
-    "HTTPPort": 8090,
-    "Profile": "avosa"
+    "HTTPPort": 8090
 }

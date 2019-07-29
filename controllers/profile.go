@@ -30,7 +30,7 @@ func (req *ProfileController) Get() {
 // @Success 200 {core.Profile} core.Profile
 // @router /:site [get]
 func (req *ProfileController) GetOne() {
-	siteParam := req.Ctx.FindParam("site")
+	siteParam := req.FindParam("site")
 
 	key, err := husk.ParseKey(siteParam)
 
@@ -64,7 +64,7 @@ func (req *ProfileController) GetOne() {
 // @router / [post]
 func (req *ProfileController) Post() {
 	var site core.Profile
-	err := req.Ctx.Body(&site)
+	err := req.Body(&site)
 
 	if err != nil {
 		req.Serve(http.StatusBadRequest, err, nil)
