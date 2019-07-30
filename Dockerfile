@@ -21,6 +21,6 @@ FROM scratch
 COPY --from=builder /box/folio .
 COPY conf conf
 
-EXPOSE 8088
+EXPOSE 8090
 
 ENTRYPOINT [ "./folio" ]

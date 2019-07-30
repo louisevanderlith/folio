@@ -10,10 +10,10 @@ The Folio API controls profile information services.
 * $ docker logs FolioDEV
 
 ### Folio API Exposes the following Endpoints
-**"/v1/profile" POST**
+**"/profile" POST**
 Posting to Profile will attempt to create a new database entry
 ```
-url: /v1/profile
+url: /profile
 body: {
     Title:          "string"
 	Description:    "string"
@@ -30,10 +30,10 @@ response: {
 }
 ```
 
-**"/v1/profile" PUT**
+**"/profile" PUT**
 Putting it to Profile will attempt to update an existing database entry
 ```
-url: /v1/profile
+url: /profile
 body: {
 	Key: '1554125525`0',
 	Body: {
@@ -53,21 +53,21 @@ response: {
 }
 ```
 
-**"/v1/profile/:site" GET**
+**"/profile/:site" GET**
 Getting a Profile by Title OR Key will attempt to find a matching database entry
 ```
 url: /v1/profile/1554125525`0 [By Key]
-url: /v1/profile/mysite [By Title]
+url: /profile/mysite [By Title]
 body: {}
 response: {
 
 }
 ```
 
-**"/v1/profile/all/:pagesize" GET**
+**"/profile/all/:pagesize" GET**
 Getting all Profiles will return the specified amount, if available, of entries in the database
 ```
-url: /v1/profile/all/A10 [Page A, 10 Results]
+url: /profile/all/A10 [Page A, 10 Results]
 body: {}
 response: {
     
