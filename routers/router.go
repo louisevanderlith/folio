@@ -12,7 +12,7 @@ func Setup(e *droxolite.Epoxy) {
 	profCtrl := &controllers.ProfileController{}
 	profGroup := droxolite.NewRouteGroup("profile", profCtrl)
 	profGroup.AddRoute("/", "PUT", roletype.Unknown, profCtrl.Put)
-	profGroup.AddRoute("/{site:[a-zA-Z]+}", "GET", roletype.Admin, profCtrl.GetOne)
+	profGroup.AddRoute("/{site:[a-zA-Z]+}", "GET", roletype.Unknown, profCtrl.GetOne)
 	profGroup.AddRoute("/all/{pagesize:[A-Z][0-9]+}", "GET", roletype.Admin, profCtrl.Get)
 	e.AddGroup(profGroup)
 
