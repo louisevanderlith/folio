@@ -11,15 +11,15 @@ func Setup(e *droxolite.Epoxy) {
 	//Profile
 	profCtrl := &controllers.ProfileController{}
 	profGroup := droxolite.NewRouteGroup("profile", profCtrl)
-	profGroup.AddRoute("/", "PUT", roletype.Unknown, profCtrl.Put)
-	profGroup.AddRoute("/{site:[a-zA-Z]+}", "GET", roletype.Unknown, profCtrl.GetOne)
-	profGroup.AddRoute("/all/{pagesize:[A-Z][0-9]+}", "GET", roletype.Admin, profCtrl.Get)
+	profGroup.AddRoute("Update Profile", "/", "PUT", roletype.Unknown, profCtrl.Put)
+	profGroup.AddRoute("Profile by Name", "/{site:[a-zA-Z]+}", "GET", roletype.Unknown, profCtrl.GetOne)
+	profGroup.AddRoute("All Profiles", "/all/{pagesize:[A-Z][0-9]+}", "GET", roletype.Admin, profCtrl.Get)
 	e.AddGroup(profGroup)
 
 	//Theme
 	themeCtrl := &controllers.ThemeController{}
 	themeGroup := droxolite.NewRouteGroup("theme", themeCtrl)
-	themeGroup.AddRoute("/{site:[a-zA-Z]+}", "GET", roletype.Unknown, themeCtrl.Get)
+	themeGroup.AddRoute("Profile Theme", "/{site:[a-zA-Z]+}", "GET", roletype.Unknown, themeCtrl.Get)
 	e.AddGroup(themeGroup)
 
 	/*ctrlmap := EnableFilters(s, host)
