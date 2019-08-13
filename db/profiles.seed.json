@@ -1,63 +1,94 @@
-[{
-    "Title": "avosa",
-    "ContactEmail": "info@avosa.co.za",
-    "Description": "We're a software development company specialising in the Automotive and Transport industry. Having a history on a vehicle could increase the value and also give you better insight as to 
-    what you are buying, uploading your vehicles service/maintenance history will ensure future buyers
-    know exactly what they are buying, having a history is key to a quicker and easier sale as the 
-    new owner will be able to make an informed desicion much quicker.",
-    "ContactPhone": "0893523423",
-    "GTag": "UA-000000000-0",
-    "URL": "https://www.localhost",
-    "PortfolioItems": [
-        {
-            "Name": "Cars",
-            "URL": "https://cars.localhost"
-        },
-        {
-            "Name": "Admin",
-            "URL": "https://admin.localhost"
-        },
-        {
-            "Name": "Logbook",
-            "URL": "https://logbook.localhost"
-        },
-        {
-            "Name": "Shop",
-            "URL": "https://shop.localhost"
-        }
-    ],
-    "SocialLinks": [
-        {
-            "Icon": "fa-facebook",
-            "URL": "https://www.facebook.com/avosasoftware"
-        },
-        {
-            "Icon": "fa-twitter",
-            "URL": "https://twitter.com/avosasoftware"
-        }
-    ]
-},
-{
-    "Title": "vickyweet",
-    "ContactEmail": "info@avosa.co.za",
-    "Description": "DIY & Decor Lifestyle",
-    "ContactPhone": "08935234456",
-    "GTag": "UA-000000000-0",
-    "URL": "https://www.localhostB",
-    "PortfolioItems": [
-        {
-            "Name": "Admin",
-            "URL": "https://admin.localhostB"
-        }
-    ],
-    "SocialLinks": [
-        {
-            "Icon": "fa-facebook",
-            "URL": "https://www.facebook.com/vickyweet"
-        },
-        {
-            "Icon": "fa-twitter",
-            "URL": "https://twitter.com/vickyweet"
-        }
-    ]
-}]
+[
+    {
+        "Title": "avosa",
+        "ContactEmail": "info@avosa.co.za",
+        "Description": "We're a software development company specialising in the Automotive and Transport industry. ",
+        "ContactPhone": "0893523423",
+        "GTag": "UA-000000000-0",
+        "URL": "https://www.localhost",
+        "PortfolioItems": [
+            {
+                "Name": "Cars",
+                "URL": "https://cars.localhost"
+            },
+            {
+                "Name": "Admin",
+                "URL": "https://admin.localhost"
+            },
+            {
+                "Name": "Logbook",
+                "URL": "https://logbook.localhost"
+            },
+            {
+                "Name": "Shop",
+                "URL": "https://shop.localhost"
+            }
+        ],
+        "SocialLinks": [
+            {
+                "Icon": "fa-facebook",
+                "URL": "https://www.facebook.com/avosasoftware"
+            },
+            {
+                "Icon": "fa-twitter",
+                "URL": "https://twitter.com/avosasoftware"
+            }
+        ]
+    },
+    {
+        "Title": "GetProperty",
+        "ContactEmail": "info@avosa.co.za",
+        "Description": "Coming Soon ",
+        "ContactPhone": "0893523423",
+        "GTag": "UA-000000000-0",
+        "URL": "https://www.localhost",
+        "PortfolioItems": [
+            {
+                "Name": "Get Property",
+                "URL": "https://getproperty.localhost"
+            }
+        ],
+        "SocialLinks": [
+            {
+                "Icon": "fa-facebook",
+                "URL": "https://www.facebook.com/avosasoftware"
+            },
+            {
+                "Icon": "fa-twitter",
+                "URL": "https://twitter.com/idealcarza"
+            },
+            {
+                "Icon": "fa-instagram",
+                "URL": "https://twitter.com/idealcarza"
+            },
+            {
+                "Icon": "fa-youtube",
+                "URL": "https://twitter.com/idealcarza"
+            }
+        ]
+    },
+    {
+        "Title": "IdealCar",
+        "ContactEmail": "info@avosa.co.za",
+        "Description": "We're an online vehicle marketing platform. ",
+        "ContactPhone": "0893523423",
+        "GTag": "UA-000000000-0",
+        "URL": "https://www.localhost",
+        "PortfolioItems": [
+            {
+                "Name": "Ideal Car",
+                "URL": "https://idealcar.localhost"
+            }
+        ],
+        "SocialLinks": [
+            {
+                "Icon": "fa-facebook",
+                "URL": "https://www.facebook.com/avosasoftware"
+            },
+            {
+                "Icon": "fa-twitter",
+                "URL": "https://twitter.com/idealcarza"
+            }
+        ]
+    }
+]

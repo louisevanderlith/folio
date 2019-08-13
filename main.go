@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"os"
 	"path"
 
@@ -15,13 +14,13 @@ import (
 func main() {
 	keyPath := os.Getenv("KEYPATH")
 	pubName := os.Getenv("PUBLICKEY")
-	//host := os.Getenv("HOST")
+	host := os.Getenv("HOST")
 	pubPath := path.Join(keyPath, pubName)
 
 	conf, err := droxolite.LoadConfig()
 
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	// Register with router
@@ -30,11 +29,12 @@ func main() {
 	err = srv.Register()
 
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	poxy := droxolite.NewEpoxy(srv)
 	routers.Setup(poxy)
+	poxy.EnableCORS(host)
 
 	core.CreateContext()
 	defer core.Shutdown()
@@ -42,6 +42,6 @@ func main() {
 	err = poxy.Boot()
 
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 }

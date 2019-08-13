@@ -1,4 +1,4 @@
-FROM golang:1.11 as build_base
+FROM golang:1.12 as build_base
 
 WORKDIR /box
 
@@ -21,6 +21,6 @@ FROM scratch
 COPY --from=builder /box/folio .
 COPY conf conf
 
-EXPOSE 8088
+EXPOSE 8090
 
 ENTRYPOINT [ "./folio" ]
