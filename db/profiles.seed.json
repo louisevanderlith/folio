@@ -6,6 +6,23 @@
         "ContactPhone": "0893523423",
         "GTag": "UA-000000000-0",
         "URL": "https://www.localhost",
+        "Headers": [
+            {
+                "ImageKey": "0`0",
+                "Heading": "Header ONE",
+                "Text": "This is the text for Header One"
+            },
+            {
+                "ImageKey": "0`0",
+                "Heading": "Header TWO",
+                "Text": "This is the text for Header Two"
+            },
+            {
+                "ImageKey": "0`0",
+                "Heading": "Header THREE",
+                "Text": "This is the text for Header Three"
+            }
+        ],
         "PortfolioItems": [
             {
                 "Name": "Cars",
