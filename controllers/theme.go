@@ -5,31 +5,28 @@ import (
 	"net/http"
 
 	"github.com/louisevanderlith/droxolite/bodies"
-	"github.com/louisevanderlith/droxolite/xontrols"
+	"github.com/louisevanderlith/droxolite/context"
 	"github.com/louisevanderlith/folio/core"
 )
 
-type ThemeController struct {
-	xontrols.APICtrl
+type Theme struct {
 }
 
 //:site
-func (c *ThemeController) Get() {
-	profile := c.FindParam("site")
+func (c *Theme) Get(ctx context.Contexer) (int, interface{}) {
+	profile := ctx.FindParam("site")
 
 	if len(profile) == 0 {
-		c.Serve(http.StatusNotFound, errors.New("invalid site"), nil)
-		return
+		return http.StatusBadRequest, errors.New("invalid site")
 	}
 
 	prof, err := core.GetProfileByName(profile)
 
 	if err != nil {
-		c.Serve(http.StatusNotFound, err, nil)
-		return
+		return http.StatusNotFound, err
 	}
 
-	theme := bodies.NewThemeSetting(prof.Title, c.Ctx().Host(), prof.ImageKey, "", prof.GTag)
+	theme := bodies.NewThemeSetting(prof.Title, ctx.Host(), prof.ImageKey, "", prof.GTag)
 
-	c.Serve(http.StatusOK, nil, theme)
+	return http.StatusOK, theme
 }

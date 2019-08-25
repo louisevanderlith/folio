@@ -3,25 +3,24 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/louisevanderlith/droxolite/xontrols"
+	"github.com/louisevanderlith/droxolite/context"
 	"github.com/louisevanderlith/husk"
 
 	"github.com/louisevanderlith/folio/core"
 )
 
-type ProfileController struct {
-	xontrols.APICtrl
+type Profile struct {
 }
 
 // @Title GetSites
 // @Description Gets all sites
 // @Success 200 {[]core.Profile} []core.Portfolio]
 // @router /all/:pagesize [get]
-func (req *ProfileController) Get() {
-	page, size := req.GetPageData()
+func (req *Profile) Get(ctx context.Contexer) (int, interface{}) {
+	page, size := ctx.GetPageData()
 	results := core.GetProfiles(page, size)
 
-	req.Serve(http.StatusOK, nil, results)
+	return http.StatusOK, results
 }
 
 // @Title GetSite
@@ -29,8 +28,8 @@ func (req *ProfileController) Get() {
 // @Param	site			path	string 	true		"customer website name OR ID"
 // @Success 200 {core.Profile} core.Profile
 // @router /:site [get]
-func (req *ProfileController) GetOne() {
-	siteParam := req.FindParam("site")
+func (req *Profile) GetOne(ctx context.Contexer) (int, interface{}) {
+	siteParam := ctx.FindParam("site")
 
 	key, err := husk.ParseKey(siteParam)
 
@@ -38,22 +37,19 @@ func (req *ProfileController) GetOne() {
 		byName, err := core.GetProfileByName(siteParam)
 
 		if err != nil {
-			req.Serve(http.StatusNotFound, err, nil)
-			return
+			return http.StatusNotFound, err
 		}
 
-		req.Serve(http.StatusOK, nil, byName)
-		return
+		return http.StatusOK, byName
 	}
 
 	result, err := core.GetProfile(key)
 
 	if err != nil {
-		req.Serve(http.StatusNotFound, err, nil)
-		return
+		return http.StatusNotFound, err
 	}
 
-	req.Serve(http.StatusOK, nil, result)
+	return http.StatusOK, result
 }
 
 // @Title RegisterWebsite
@@ -62,23 +58,21 @@ func (req *ProfileController) GetOne() {
 // @Success 200 {map[string]string} map[string]string
 // @Failure 403 body is empty
 // @router / [post]
-func (req *ProfileController) Post() {
+func (req *Profile) Post(ctx context.Contexer) (int, interface{}) {
 	var site core.Profile
-	err := req.Body(&site)
+	err := ctx.Body(&site)
 
 	if err != nil {
-		req.Serve(http.StatusBadRequest, err, nil)
-		return
+		return http.StatusBadRequest, err
 	}
 
 	rec := site.Create()
 
 	if rec.Error != nil {
-		req.Serve(http.StatusInternalServerError, rec.Error, nil)
-		return
+		return http.StatusInternalServerError, rec.Error
 	}
 
-	req.Serve(http.StatusOK, nil, rec)
+	return http.StatusOK, rec
 }
 
 // @Title UpdateWebsite
@@ -87,21 +81,19 @@ func (req *ProfileController) Post() {
 // @Success 200 {map[string]string} map[string]string
 // @Failure 403 body is empty
 // @router / [put]
-func (req *ProfileController) Put() {
+func (req *Profile) Put(ctx context.Contexer) (int, interface{}) {
 	body := &core.Profile{}
-	key, err := req.GetKeyedRequest(body)
+	key, err := ctx.GetKeyedRequest(body)
 
 	if err != nil {
-		req.Serve(http.StatusBadRequest, err, nil)
-		return
+		return http.StatusBadRequest, err
 	}
 
 	err = body.Update(key)
 
 	if err != nil {
-		req.Serve(http.StatusNotFound, err, nil)
-		return
+		return http.StatusNotFound, err
 	}
 
-	req.Serve(http.StatusOK, nil, nil)
+	return http.StatusOK, nil
 }
