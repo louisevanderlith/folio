@@ -15,7 +15,7 @@ func Setup(e resins.Epoxi) {
 	profCtrl := &controllers.Profile{}
 	themeCtrl := &controllers.Theme{}
 	e.JoinBundle("/", roletype.Unknown, mix.JSON, profCtrl, themeCtrl)
-	e.JoinPath(e.Router().(*mux.Router), "/profile/{site:[a-zA-Z]+}", "Profile by Name", http.MethodGet, roletype.Unknown, mix.JSON, profCtrl.View)
+	e.JoinPath(e.Router().(*mux.Router), "/profile/{site:[a-zA-Z]+}", "Profile by Name", http.MethodGet, roletype.Unknown, mix.JSON, profCtrl.ViewByName)
 	/*
 		//Profile
 		profGroup := routing.NewRouteGroup("profile", mix.JSON)

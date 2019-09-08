@@ -35,21 +35,25 @@ func (req *Profile) Search(ctx context.Requester) (int, interface{}) {
 // @Success 200 {core.Profile} core.Profile
 // @router /:site [get]
 func (req *Profile) View(ctx context.Requester) (int, interface{}) {
-	siteParam := ctx.FindParam("site")
-
-	key, err := husk.ParseKey(siteParam)
+	key, err := husk.ParseKey(ctx.FindParam("key"))
 
 	if err != nil {
-		byName, err := core.GetProfileByName(siteParam)
-
-		if err != nil {
-			return http.StatusNotFound, err
-		}
-
-		return http.StatusOK, byName
+		return http.StatusBadRequest, err
 	}
 
 	result, err := core.GetProfile(key)
+
+	if err != nil {
+		return http.StatusNotFound, err
+	}
+
+	return http.StatusOK, result
+}
+
+func (req *Profile) ViewByName(ctx context.Requester) (int, interface{}) {
+	siteParam := ctx.FindParam("site")
+
+	result, err := core.GetProfileByName(siteParam)
 
 	if err != nil {
 		return http.StatusNotFound, err
