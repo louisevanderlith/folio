@@ -4,8 +4,8 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/louisevanderlith/droxolite/bodies"
 	"github.com/louisevanderlith/droxolite/context"
+	"github.com/louisevanderlith/droxolite/element"
 	"github.com/louisevanderlith/folio/core"
 )
 
@@ -13,7 +13,7 @@ type Theme struct {
 }
 
 //:site
-func (c *Theme) Get(ctx context.Contexer) (int, interface{}) {
+func (c *Theme) Get(ctx context.Requester) (int, interface{}) {
 	profile := ctx.FindParam("site")
 
 	if len(profile) == 0 {
@@ -26,7 +26,7 @@ func (c *Theme) Get(ctx context.Contexer) (int, interface{}) {
 		return http.StatusNotFound, err
 	}
 
-	theme := bodies.NewThemeSetting(prof.Title, ctx.Host(), prof.ImageKey, "", prof.GTag)
+	theme := element.NewIdentity(prof.Title, ctx.Host(), prof.ImageKey, "", prof.GTag)
 
 	return http.StatusOK, theme
 }

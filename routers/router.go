@@ -1,30 +1,35 @@
 package routers
 
 import (
+	"net/http"
+
+	"github.com/gorilla/mux"
 	"github.com/louisevanderlith/folio/controllers"
 
 	"github.com/louisevanderlith/droxolite/mix"
 	"github.com/louisevanderlith/droxolite/resins"
 	"github.com/louisevanderlith/droxolite/roletype"
-	"github.com/louisevanderlith/droxolite/routing"
 )
 
 func Setup(e resins.Epoxi) {
-	//Profile
 	profCtrl := &controllers.Profile{}
-	profGroup := routing.NewRouteGroup("profile", mix.JSON)
-	profGroup.AddRoute("Update Profile", "", "PUT", roletype.Unknown, profCtrl.Put)
-	profGroup.AddRoute("Profile by Name", "/{site:[a-zA-Z]+}", "GET", roletype.Unknown, profCtrl.GetOne)
-	profGroup.AddRoute("Profile by Key", "/{site:[0-9]+\x60[0-9]+}", "GET", roletype.Unknown, profCtrl.GetOne)
-	profGroup.AddRoute("All Profiles", "/all/{pagesize:[A-Z][0-9]+}", "GET", roletype.Admin, profCtrl.Get)
-	e.AddGroup(profGroup)
-
-	//Theme
 	themeCtrl := &controllers.Theme{}
-	themeGroup := routing.NewRouteGroup("theme", mix.JSON)
-	themeGroup.AddRoute("Profile Theme", "/{site:[a-zA-Z]+}", "GET", roletype.Unknown, themeCtrl.Get)
-	e.AddGroup(themeGroup)
+	e.JoinBundle("/", roletype.Unknown, mix.JSON, profCtrl, themeCtrl)
+	e.JoinPath(e.Router().(*mux.Router), "/profile/{site:[a-zA-Z]+}", "Profile by Name", http.MethodGet, roletype.Unknown, mix.JSON, profCtrl.View)
+	/*
+		//Profile
+		profGroup := routing.NewRouteGroup("profile", mix.JSON)
+		profGroup.AddRoute("Update Profile", "", "PUT", roletype.Unknown, profCtrl.Put)
+		//profGroup.AddRoute("Profile by Name", "/{site:[a-zA-Z]+}", "GET", roletype.Unknown, profCtrl.GetOne) via search
+		profGroup.AddRoute("Profile by Key", "/{site:[0-9]+\x60[0-9]+}", "GET", roletype.Unknown, profCtrl.GetOne)
+		profGroup.AddRoute("All Profiles", "/all/{pagesize:[A-Z][0-9]+}", "GET", roletype.Admin, profCtrl.Get)
+		e.AddBundle(profGroup)
 
+		//Theme
+		themeGroup := routing.NewRouteGroup("theme", mix.JSON)
+		themeGroup.AddRoute("Profile Theme", "/{site:[a-zA-Z]+}", "GET", roletype.Unknown, themeCtrl.Get)
+		e.AddBundle(themeGroup)
+	*/
 	/*ctrlmap := EnableFilters(s, host)
 
 	profCtrl := controllers.NewProfileCtrl(ctrlmap)

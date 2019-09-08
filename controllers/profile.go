@@ -12,11 +12,17 @@ import (
 type Profile struct {
 }
 
+func (req *Profile) Get(ctx context.Requester) (int, interface{}) {
+	results := core.GetProfiles(1, 10)
+
+	return http.StatusOK, results
+}
+
 // @Title GetSites
 // @Description Gets all sites
 // @Success 200 {[]core.Profile} []core.Portfolio]
 // @router /all/:pagesize [get]
-func (req *Profile) Get(ctx context.Contexer) (int, interface{}) {
+func (req *Profile) Search(ctx context.Requester) (int, interface{}) {
 	page, size := ctx.GetPageData()
 	results := core.GetProfiles(page, size)
 
@@ -28,7 +34,7 @@ func (req *Profile) Get(ctx context.Contexer) (int, interface{}) {
 // @Param	site			path	string 	true		"customer website name OR ID"
 // @Success 200 {core.Profile} core.Profile
 // @router /:site [get]
-func (req *Profile) GetOne(ctx context.Contexer) (int, interface{}) {
+func (req *Profile) View(ctx context.Requester) (int, interface{}) {
 	siteParam := ctx.FindParam("site")
 
 	key, err := husk.ParseKey(siteParam)
@@ -58,7 +64,7 @@ func (req *Profile) GetOne(ctx context.Contexer) (int, interface{}) {
 // @Success 200 {map[string]string} map[string]string
 // @Failure 403 body is empty
 // @router / [post]
-func (req *Profile) Post(ctx context.Contexer) (int, interface{}) {
+func (req *Profile) Create(ctx context.Requester) (int, interface{}) {
 	var site core.Profile
 	err := ctx.Body(&site)
 
@@ -81,7 +87,7 @@ func (req *Profile) Post(ctx context.Contexer) (int, interface{}) {
 // @Success 200 {map[string]string} map[string]string
 // @Failure 403 body is empty
 // @router / [put]
-func (req *Profile) Put(ctx context.Contexer) (int, interface{}) {
+func (req *Profile) Update(ctx context.Requester) (int, interface{}) {
 	body := &core.Profile{}
 	key, err := ctx.GetKeyedRequest(body)
 
