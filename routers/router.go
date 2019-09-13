@@ -13,9 +13,11 @@ import (
 
 func Setup(e resins.Epoxi) {
 	profCtrl := &controllers.Profile{}
-	themeCtrl := &controllers.Theme{}
-	e.JoinBundle("/", roletype.Unknown, mix.JSON, profCtrl, themeCtrl)
+	e.JoinBundle("/", roletype.Unknown, mix.JSON, profCtrl)
 	e.JoinPath(e.Router().(*mux.Router), "/profile/{site:[a-zA-Z]+}", "Profile by Name", http.MethodGet, roletype.Unknown, mix.JSON, profCtrl.ViewByName)
+
+	themeCtrl := &controllers.Theme{}
+	e.JoinPath(e.Router().(*mux.Router), "/theme/{site:[a-zA-Z]+}", "Profile Theme", http.MethodGet, roletype.Unknown, mix.JSON, themeCtrl.Get)
 	/*
 		//Profile
 		profGroup := routing.NewRouteGroup("profile", mix.JSON)
