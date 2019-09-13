@@ -68,6 +68,11 @@ func (p Profile) Update(key husk.Key) error {
 		return err
 	}
 
-	defer ctx.Profiles.Save()
-	return ctx.Profiles.Update(profile)
+	err = ctx.Profiles.Update(profile)
+
+	if err != nil {
+		return err
+	}
+
+	return ctx.Profiles.Save()
 }
