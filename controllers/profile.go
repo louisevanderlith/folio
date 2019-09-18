@@ -69,7 +69,7 @@ func (req *Profile) ViewByName(ctx context.Requester) (int, interface{}) {
 // @Failure 403 body is empty
 // @router / [post]
 func (req *Profile) Create(ctx context.Requester) (int, interface{}) {
-	var site core.Profile
+	site := core.Profile{}
 	err := ctx.Body(&site)
 
 	if err != nil {
@@ -92,8 +92,14 @@ func (req *Profile) Create(ctx context.Requester) (int, interface{}) {
 // @Failure 403 body is empty
 // @router / [put]
 func (req *Profile) Update(ctx context.Requester) (int, interface{}) {
+	key, err := husk.ParseKey(ctx.FindParam("key"))
+
+	if err != nil {
+		return http.StatusBadRequest, err
+	}
+
 	body := &core.Profile{}
-	key, err := ctx.GetKeyedRequest(body)
+	err = ctx.Body(body)
 
 	if err != nil {
 		return http.StatusBadRequest, err
