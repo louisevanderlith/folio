@@ -3,6 +3,7 @@ package core
 import "github.com/louisevanderlith/husk"
 
 type Profile struct {
+	ClientID       string       `hsk:"size(48)"`
 	Title          string       `hsk:"size(128)" json:",omitempty"`
 	Description    string       `hsk:"size(512)" json:",omitempty"`
 	ContactEmail   string       `hsk:"size(128)" json:",omitempty"`
@@ -19,36 +20,36 @@ func (p Profile) Valid() (bool, error) {
 	return husk.ValidateStruct(&p)
 }
 
-func getProfile(key husk.Key) (husk.Recorder, error) {
-	return ctx.Profiles.FindByKey(key)
-}
-
-func getProfileByName(name string) (husk.Recorder, error) {
-	return ctx.Profiles.FindFirst(byName(name))
-}
-
-func GetProfile(key husk.Key) (*Profile, error) {
-	rec, err := getProfile(key)
+func GetProfile(key husk.Key) (Profile, error) {
+	rec, err := ctx.Profiles.FindByKey(key)
 
 	if err != nil {
-		return nil, err
+		return Profile{}, err
 	}
 
-	return rec.Data().(*Profile), nil
+	return rec.Data().(Profile), nil
 }
 
-func GetProfileByName(name string) (*Profile, error) {
-	rec, err := getProfileByName(name)
+func GetProfileByName(name string) (Profile, error) {
+	rec, err := ctx.Profiles.FindFirst(byName(name))
 
 	if err != nil {
-		return nil, err
+		return Profile{}, err
 	}
 
-	return rec.Data().(*Profile), nil
+	return rec.Data().(Profile), nil
 }
 
-func GetProfiles(page, size int) husk.Collection {
+func GetAllProfiles(page, size int) husk.Collection {
 	return ctx.Profiles.Find(page, size, husk.Everything())
+}
+
+func GetProfiles(page, size int, hsh string) husk.Collection {
+	if len(hsh) == 0 {
+		return GetAllProfiles(page, size)
+	}
+
+	return ctx.Profiles.Find(page, size, byHash(hsh))
 }
 
 func (p Profile) Create() husk.CreateSet {
@@ -56,7 +57,7 @@ func (p Profile) Create() husk.CreateSet {
 }
 
 func (p Profile) Update(key husk.Key) error {
-	profile, err := getProfile(key)
+	profile, err := ctx.Profiles.FindByKey(key)
 
 	if err != nil {
 		return err
