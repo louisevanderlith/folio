@@ -2,10 +2,10 @@ package profile
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/louisevanderlith/droxo"
 	"github.com/louisevanderlith/folio/core"
 	"github.com/louisevanderlith/husk"
 	"net/http"
-	"strconv"
 )
 
 func Get(c *gin.Context) {
@@ -14,7 +14,7 @@ func Get(c *gin.Context) {
 }
 
 func Search(c *gin.Context) {
-	page, size := getPageData(c.Param("pagesize"))
+	page, size := droxo.GetPageData(c.Param("pagesize"))
 	hsh := c.Param("hash")
 
 	results := core.GetProfiles(page, size, hsh)
@@ -65,28 +65,4 @@ func Create(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, rec)
-}
-
-func getPageData(pageData string) (int, int) {
-	defaultPage := 1
-	defaultSize := 10
-
-	if len(pageData) < 2 {
-		return defaultPage, defaultSize
-	}
-
-	pChar := []rune(pageData[:1])
-
-	if len(pChar) != 1 {
-		return defaultPage, defaultSize
-	}
-
-	page := int(pChar[0]) % 32
-	pageSize, err := strconv.Atoi(pageData[1:])
-
-	if err != nil {
-		return defaultPage, defaultSize
-	}
-
-	return page, pageSize
 }
