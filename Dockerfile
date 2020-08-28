@@ -1,4 +1,4 @@
-FROM golang:1.12 as build_base
+FROM golang:1.13 as build_base
 
 WORKDIR /box
 
@@ -10,16 +10,33 @@ RUN go mod download
 FROM build_base as builder
 
 COPY main.go .
-COPY controllers ./controllers
-COPY core ./core
-COPY routers ./routers
+COPY handles ./handles
+COPY resources ./resources
 
 RUN CGO_ENABLED="0" go build
 
-FROM scratch
+FROM google/dart AS pyltjie
+ENV PATH="$PATH:/root/.pub-cache/bin"
+
+WORKDIR /arrow
+RUN pub global activate webdev
+
+COPY build.yaml build.yaml
+COPY pubspec.yaml pubspec.yaml
+RUN pub get
+
+COPY web ./web
+COPY lib ./lib
+RUN webdev build
+
+FROM alpine:latest
 
 COPY --from=builder /box/folio .
+COPY --from=pyltjie /arrow/build/*.dart.js dist/js/
+COPY views views
 
-EXPOSE 8090
+RUN mkdir -p /views/_shared
+
+EXPOSE 8107
 
 ENTRYPOINT [ "./folio" ]

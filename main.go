@@ -1,52 +1,36 @@
 package main
 
 import (
-	"os"
-	"path"
-	"strconv"
+	"flag"
+	"github.com/louisevanderlith/droxolite/drx"
+	"net/http"
+	"time"
 
-	"github.com/louisevanderlith/droxolite"
-	"github.com/louisevanderlith/droxolite/bodies"
-	"github.com/louisevanderlith/droxolite/do"
-	"github.com/louisevanderlith/droxolite/element"
-	"github.com/louisevanderlith/droxolite/resins"
-	"github.com/louisevanderlith/droxolite/servicetype"
-	"github.com/louisevanderlith/folio/routers"
-
-	"github.com/louisevanderlith/folio/core"
+	"github.com/louisevanderlith/folio/handles"
 )
 
 func main() {
-	keyPath := os.Getenv("KEYPATH")
-	pubName := os.Getenv("PUBLICKEY")
-	host := os.Getenv("HOST")
-	httpport, _ := strconv.Atoi(os.Getenv("HTTPPORT"))
-	appName := os.Getenv("APPNAME")
-	pubPath := path.Join(keyPath, pubName)
+	clientId := flag.String("client", "mango.folio", "Client ID which will be used to verify this instance")
+	clientSecrt := flag.String("secret", "secret", "Client Secret which will be used to authenticate this instance")
+	security := flag.String("security", "http://localhost:8086", "Security Provider's URL")
+	authority := flag.String("authority", "http://localhost:8094", "Authority Provider's URL")
 
-	// Register with router
-	srv := bodies.NewService(appName, "", pubPath, host, httpport, servicetype.API)
+	flag.Parse()
 
-	routr, err := do.GetServiceURL("", "Router.API", false)
+	err := drx.UpdateTemplate(*clientId, *clientSecrt, *security)
 
 	if err != nil {
 		panic(err)
 	}
 
-	err = srv.Register(routr)
-
-	if err != nil {
-		panic(err)
+	srvr := &http.Server{
+		ReadTimeout:  time.Second * 15,
+		WriteTimeout: time.Second * 15,
+		Addr:         ":8107",
+		Handler:      handles.SetupRoutes(*clientId, *clientSecrt, *security, *authority),
 	}
 
-	poxy := resins.NewMonoEpoxy(srv, element.GetNoTheme(host, srv.ID, "none"))
-	routers.Setup(poxy)
-	poxy.EnableCORS(host)
-
-	core.CreateContext()
-	defer core.Shutdown()
-
-	err = droxolite.Boot(poxy)
+	err = srvr.ListenAndServe()
 
 	if err != nil {
 		panic(err)

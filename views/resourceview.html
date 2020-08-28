@@ -1,0 +1,47 @@
+{{template "foliopage.html" .}}
+{{define "foliocontent"}}
+    <form id="frmResourceEdit" role="form">
+        <div class="field">
+            <label class="label" for="txtName">Name</label>
+            <div class="control">
+                <input class="input" type="text" id="txtName" required placeholder="Name" value="{{.Data.Name}}"/>
+                <p class="help is-danger"></p>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="txtDisplayName">Display Name</label>
+            <div class="control">
+                <input class="input" type="text" id="txtDisplayName" required placeholder="Display Name"
+                       value="{{.Data.DisplayName}}"/>
+                <p class="help is-danger"></p>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="txtSecret">Secret</label>
+            <div class="control">
+                <input class="input" type="password" id="txtSecret" required placeholder="Secret"/>
+                <p class="help is-danger"></p>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" for="txtNewNeed">Needs</label>
+            <div class="control">
+                <input class="input" type="text" id="txtNewNeed" placeholder="New Need"/>
+                <button type="button" class="button is-info is-small" id="btnAddNeed">Add</button>
+                <div class="container">
+                    <ul id="lstNeeds">
+                        {{range $_, $v := .Data.Needs}}
+                            <li>$v</li>
+                        {{end}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <button id="btnSave" class="button is-block is-success is-large">Save</button>
+            </div>
+        </div>
+    </form>
+{{end}}
