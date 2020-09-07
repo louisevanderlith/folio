@@ -20,12 +20,12 @@ func APIResource(clnt *http.Client, r *http.Request) *Source {
 	}
 }
 
-func (src *Source) get(api, path string, params ...string) (interface{}, error) {
+func (src *Source) get(container interface{}, api, path string, params ...string) error {
 	tkninfo := drx.GetIdentity(src.r)
 	url, err := tkninfo.GetResourceURL(api)
 
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	fullURL := fmt.Sprintf("%s/%s/%s", url, path, strings.Trim(strings.Join(params, "/"), "/"))
@@ -34,20 +34,17 @@ func (src *Source) get(api, path string, params ...string) (interface{}, error) 
 	req.Header.Set("Authorization", "Bearer "+drx.GetToken(src.r))
 
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	resp, err := src.client.Do(req)
 
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	defer resp.Body.Close()
 
-	var result interface{}
 	dec := json.NewDecoder(resp.Body)
-	err = dec.Decode(&result)
-
-	return result, nil
+	return dec.Decode(container)
 }

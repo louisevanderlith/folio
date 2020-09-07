@@ -1,11 +1,10 @@
 package handles
 
 import (
-	"fmt"
 	"github.com/louisevanderlith/droxolite/drx"
 	"github.com/louisevanderlith/droxolite/mix"
 	"github.com/louisevanderlith/folio/resources"
-	"github.com/louisevanderlith/husk"
+	"github.com/louisevanderlith/husk/keys"
 	"html/template"
 	"log"
 	"net/http"
@@ -25,8 +24,8 @@ func GetResource(tmpl *template.Template) http.HandlerFunc {
 			return
 		}
 
-		result["Next"] = "resources/B10"
-		result["Previous"] = ""
+		//result["Next"] = "resources/B10"
+		//result["Previous"] = ""
 		err = mix.Write(w, pge.Create(r, result))
 
 		if err != nil {
@@ -48,12 +47,12 @@ func SearchResource(tmpl *template.Template) http.HandlerFunc {
 			return
 		}
 
-		page, size := drx.GetPageData(r)
-		result["Next"] = fmt.Sprintf("%c%v", (page+1)+64, size)
+		//page, size := drx.GetPageData(r)
+		//result["Next"] = fmt.Sprintf("%c%v", (page+1)+64, size)
 
-		if page != 1 {
-			result["Previous"] = fmt.Sprintf("%c%v", (page-1)+64, size)
-		}
+		//if page != 1 {
+		//	result["Previous"] = fmt.Sprintf("%c%v", (page-1)+64, size)
+		//}
 
 		err = mix.Write(w, pge.Create(r, result))
 
@@ -67,7 +66,7 @@ func ViewResource(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Resource View", tmpl, "./views/resourceview.html")
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		key, err := husk.ParseKey(drx.FindParam(r, "key"))
+		key, err := keys.ParseKey(drx.FindParam(r, "key"))
 
 		if err != nil {
 			log.Println(err)

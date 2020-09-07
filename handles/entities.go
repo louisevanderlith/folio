@@ -1,14 +1,13 @@
 package handles
 
 import (
-	"github.com/louisevanderlith/folio/resources"
 	"github.com/louisevanderlith/droxolite/drx"
 	"github.com/louisevanderlith/droxolite/mix"
+	"github.com/louisevanderlith/folio/resources"
+	"github.com/louisevanderlith/husk/keys"
 	"html/template"
 	"log"
 	"net/http"
-
-	"github.com/louisevanderlith/husk"
 )
 
 func GetEnitites(tmpl *template.Template) http.HandlerFunc {
@@ -61,7 +60,7 @@ func ViewEntity(tmpl *template.Template) http.HandlerFunc {
 
 	return func(w http.ResponseWriter, r *http.Request) {
 
-		key, err := husk.ParseKey(drx.FindParam(r, "key"))
+		key, err := keys.ParseKey(drx.FindParam(r, "key"))
 
 		if err != nil {
 			log.Println(err)

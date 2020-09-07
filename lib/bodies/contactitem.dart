@@ -14,7 +14,7 @@ class ContactItem {
     txtIcon = querySelector(iconId);
     txtValue = querySelector(valueId);
 
-    _loaded = txtName != null && txtIcon.value != null && txtValue != null;
+    _loaded = txtName != null && txtIcon != null && txtValue != null;
   }
 
   bool get loaded {
@@ -22,15 +22,15 @@ class ContactItem {
   }
 
   String get name {
-    return txtName.text;
+    return txtName.value;
   }
 
   String get icon {
-    return txtIcon.text;
+    return txtIcon.value;
   }
 
   String get value {
-    return txtValue.text;
+    return txtValue.value;
   }
 
   Contact toDTO() {

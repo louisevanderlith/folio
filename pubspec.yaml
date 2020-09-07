@@ -11,5 +11,5 @@ dev_dependencies:
 dependencies:
   mango_ui: '^1.0.3'
   dart_toast: '^0.3.0'
-  mango_secure: '^1.0.4'
+  mango_secure: '^1.0.5'
   mango_artifact: '^1.0.1'

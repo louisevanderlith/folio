@@ -1,7 +1,7 @@
 <button type="button" class="button is-info is-small" id="btnAddEndpoint">Add Endpoint</button>
 <hr/>
 <div class="content" id="dvEndpoints">
-    {{range $i, $v := .Data.Endpoints}}
+    {{range $i, $v := .Data.Profile.Endpoints}}
         <br/>
         <div class="card">
             <header class="card-header">

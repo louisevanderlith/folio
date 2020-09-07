@@ -21,12 +21,12 @@ class ClientItem {
     chkCodes = querySelector(codesId);
     chkTerms = querySelector(termsId);
 
-    _loaded = txtName != null
-      && txtSecret != null
-      && txtUrl != null
-      && lstResources != null
-      && chkCodes != null
-      && chkTerms != null;
+    _loaded = txtName != null &&
+        txtSecret != null &&
+        txtUrl != null &&
+        lstResources != null &&
+        chkCodes != null &&
+        chkTerms != null;
   }
 
   bool get loaded {
@@ -34,19 +34,22 @@ class ClientItem {
   }
 
   String get name {
-    return txtName.text;
+    return txtName.value;
   }
 
   String get secret {
-    return txtSecret.text;
+    return txtSecret.value;
   }
 
   String get url {
-    return txtUrl.text;
+    return txtUrl.value;
   }
 
   List<String> get resources {
-    return null; //lstResources
+    return lstResources.children.map((e) {
+      print(e);
+      return e.text;
+    });
   }
 
   bool get terms {
@@ -58,6 +61,11 @@ class ClientItem {
   }
 
   Client toDTO() {
+    print("Client Name ${name}");
+    print("Client Url ${url}");
+    print("Client Resources ${resources}");
+    print("Client Terms ${terms}");
+    print("Client Codes ${codes}");
     return new Client(name, secret, url, resources, terms, codes);
   }
 }

@@ -1,15 +1,22 @@
 package resources
 
+import (
+	"github.com/louisevanderlith/husk/records"
+)
+
 func (src *Source) FetchEntity(key string) (interface{}, error) {
-	return src.get("entity", "entities", key)
+	var res interface{}
+	err := src.get(&res, "entity", "info", key)
+	return res, err
 }
 
-func (src *Source) FetchEntities(pagesize string) (map[string]interface{}, error) {
-	res, err := src.get("entity", "entities", pagesize)
+func (src *Source) FetchEntities(pagesize string) (records.Page, error) {
+	var res records.Page
+	err := src.get(&res, "entity", "info", pagesize)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return res.(map[string]interface{}), nil
+	return res, nil
 }

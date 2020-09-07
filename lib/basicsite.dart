@@ -54,7 +54,7 @@ class BasicSiteForm {
       var item = new MapItem('#txtCodeName${indx}', "#txtCodeValue${indx}");
 
       isLoaded = item.loaded;
-
+      print("Loaded Codes ${indx} ${isLoaded}");
       if (isLoaded) {
         result.add(item);
       }
@@ -74,7 +74,7 @@ class BasicSiteForm {
       var item = new MapItem('#txtTermName${indx}', "t#xtTermValue${indx}");
 
       isLoaded = item.loaded;
-
+      print("Loaded Terms ${indx} ${isLoaded}");
       if (isLoaded) {
         result.add(item);
       }
@@ -86,7 +86,7 @@ class BasicSiteForm {
   }
 
   String get title {
-    return txtTitle.text;
+    return txtTitle.value;
   }
 
   String get description {

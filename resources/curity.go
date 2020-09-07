@@ -1,57 +1,73 @@
 package resources
 
+import (
+	"github.com/louisevanderlith/husk/records"
+)
+
 func (src *Source) FetchSecurityReport(key string) (interface{}, error) {
-	return src.get("secure", "report", key)
+	var res interface{}
+	err := src.get(&res, "secure", "report", key)
+	return res, err
 }
 
-func (src *Source) FetchSecurityReports(pagesize string) (map[string]interface{}, error) {
-	res, err := src.get("secure", "report", pagesize)
+func (src *Source) FetchSecurityReports(pagesize string) (records.Page, error) {
+	var res records.Page
+	err := src.get(&res, "secure", "report", pagesize)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return res.(map[string]interface{}), nil
+	return res, nil
 }
 
 func (src *Source) FetchProfile(key string) (interface{}, error) {
-	return src.get("secure", "profiles", key)
+	var res interface{}
+	err := src.get(&res, "secure", "profiles", key)
+	return res, err
 }
 
-func (src *Source) FetchProfiles(pagesize string) (map[string]interface{}, error) {
-	res, err := src.get("secure", "profiles", pagesize)
+func (src *Source) FetchProfiles(pagesize string) (records.Page, error) {
+	var res records.Page
+	err := src.get(&res, "secure", "profiles", pagesize)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return res.(map[string]interface{}), nil
+	return res, nil
 }
 
 func (src *Source) FetchUser(key string) (interface{}, error) {
-	return src.get("secure", "users", key)
+	var res interface{}
+	err := src.get(&res, "secure", "users", key)
+	return res, err
 }
 
-func (src *Source) FetchUsers(pagesize string) (map[string]interface{}, error) {
-	res, err := src.get("secure", "users", pagesize)
+func (src *Source) FetchUsers(pagesize string) (records.Page, error) {
+	var res records.Page
+	err := src.get(&res, "secure", "users", pagesize)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return res.(map[string]interface{}), nil
+	return res, nil
 }
 
 func (src *Source) FetchResource(key string) (interface{}, error) {
-	return src.get("secure", "resources", key)
+	var res interface{}
+	err := src.get(&res, "secure", "resources", key)
+	return res, err
 }
 
-func (src *Source) FetchResources(pagesize string) (map[string]interface{}, error) {
-	res, err := src.get("secure", "resources", pagesize)
+func (src *Source) FetchResources(pagesize string) (records.Page, error) {
+	var res records.Page
+	err := src.get(&res, "secure", "resources", pagesize)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return res.(map[string]interface{}), nil
+	return res, nil
 }

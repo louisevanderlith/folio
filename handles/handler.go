@@ -22,7 +22,6 @@ func FullMenu() *menu.Menu {
 
 func SetupRoutes(clnt, scrt, securityUrl, authorityUrl string) http.Handler {
 	tmpl, err := drx.LoadTemplate("./views")
-
 	if err != nil {
 		panic(err)
 	}

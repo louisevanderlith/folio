@@ -28,15 +28,15 @@ class ClientsForm {
 
     do {
       var item = new ClientItem(
-          "txtClientName${indx}",
-          "txtClientSecret${indx}",
-          "txtClientUrl${indx}",
-          "lstResources${indx}",
-          "chkClientCodes${indx}",
-          "chkClientTerms${indx}");
+          "#txtClientName${indx}",
+          "#txtClientSecret${indx}",
+          "#txtClientUrl${indx}",
+          "#lstResources${indx}",
+          "#chkClientCodes${indx}",
+          "#chkClientTerms${indx}");
 
       isLoaded = item.loaded;
-
+      print("Loaded Client ${indx} ${isLoaded}");
       if (isLoaded) {
         result.add(item.toDTO());
       }

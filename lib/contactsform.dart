@@ -27,11 +27,11 @@ class ContactsForm {
     var indx = 0;
 
     do {
-      var item = new ContactItem('#txtContactIcon${indx}',
-          "txtContactName${indx}", '#txtContactValue${indx}');
+      var item = new ContactItem("#txtContactName${indx}",
+          "#txtContactIcon${indx}", "#txtContactValue${indx}");
 
       isLoaded = item.loaded;
-
+      print("Loaded Contact ${indx} ${isLoaded}");
       if (isLoaded) {
         result.add(item.toDTO());
       }
