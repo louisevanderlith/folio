@@ -15,3 +15,6 @@ folio
 
 db/*.husk
 !db/*.seed.json
+
+.DS_Store
+.dart_tool

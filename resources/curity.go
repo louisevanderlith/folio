@@ -2,6 +2,7 @@ package resources
 
 import (
 	"github.com/louisevanderlith/husk/records"
+	"github.com/louisevanderlith/kong/prime"
 )
 
 func (src *Source) FetchSecurityReport(key string) (interface{}, error) {
@@ -28,8 +29,8 @@ func (src *Source) FetchProfile(key string) (interface{}, error) {
 }
 
 func (src *Source) FetchProfiles(pagesize string) (records.Page, error) {
-	var res records.Page
-	err := src.get(&res, "secure", "profiles", pagesize)
+	res := records.NewResultPage(prime.Profile{})
+	err := src.get(res, "secure", "profiles", pagesize)
 
 	if err != nil {
 		return nil, err

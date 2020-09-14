@@ -26,7 +26,7 @@ func GetProfiles(tmpl *template.Template) http.HandlerFunc {
 			http.Error(w, "", http.StatusUnauthorized)
 			return
 		}
-
+		log.Println("Profiles:", result)
 		//result["Next"] = "profiles/B10"
 		//result["Previous"] = ""
 		err = mix.Write(w, pge.Create(r, result))
@@ -111,7 +111,7 @@ func CheckResources(profile prime.Profile, resources records.Page) map[string]ma
 		itor := resources.GetEnumerator()
 		for itor.MoveNext() {
 			rec := itor.Current().(hsk.Record)
-			curr := rec.Data().(prime.Resource)
+			curr := rec.GetValue().(prime.Resource)
 			result[client.Name][curr.Name] = false
 
 			for _, resource := range client.AllowedResources {
