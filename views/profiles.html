@@ -17,13 +17,15 @@
             </tr>
             </tfoot>
             <tbody>
-            {{range $key, $val := .Data.Records}}
+            {{range $_, $val := .Data.GetRecords.ToSlice}}
+                {{$v := $val.GetValue}}
+                {{$k := $val.GetKey}}
                 <tr>
-                    <td>{{$val.V.Title}}</td>
-                    <td>{{$val.V.Description}}</td>
+                    <td>{{$v.Title}}</td>
+                    <td>{{$v.Description}}</td>
                     <td>
                         <p class="buttons">
-                            <a href="/profiles/{{$val.K}}" class="button is-primary">
+                            <a href="/profiles/{{$k}}" class="button is-primary">
                             <span class="icon is-small">
                                 <i class="far fa-edit"></i>
                             </span>

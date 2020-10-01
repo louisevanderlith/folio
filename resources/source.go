@@ -20,7 +20,7 @@ func APIResource(clnt *http.Client, r *http.Request) *Source {
 	}
 }
 
-func (src *Source) get(container interface{}, api, path string, params ...string) error {
+func (src *Source) get(container interface{}, api string, params ...string) error {
 	tkninfo := drx.GetIdentity(src.r)
 	url, err := tkninfo.GetResourceURL(api)
 
@@ -28,7 +28,7 @@ func (src *Source) get(container interface{}, api, path string, params ...string
 		return err
 	}
 
-	fullURL := fmt.Sprintf("%s/%s/%s", url, path, strings.Trim(strings.Join(params, "/"), "/"))
+	fullURL := fmt.Sprintf("%s/%s", url, strings.Trim(strings.Join(params, "/"), "/"))
 
 	req, err := http.NewRequest(http.MethodGet, fullURL, nil)
 	req.Header.Set("Authorization", "Bearer "+drx.GetToken(src.r))

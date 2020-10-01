@@ -29,9 +29,10 @@ COPY web ./web
 COPY lib ./lib
 RUN webdev build
 
-FROM alpine:latest
+FROM alpine:3.12.0
 
 COPY --from=builder /box/folio .
+
 COPY --from=pyltjie /arrow/build/*.dart.js dist/js/
 COPY views views
 

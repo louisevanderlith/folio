@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:FOLIO.APP/bodies/resourceallow.dart';
 import 'package:mango_secure/bodies/client.dart';
 
 class ClientItem {
@@ -46,10 +47,21 @@ class ClientItem {
   }
 
   List<String> get resources {
-    return lstResources.children.map((e) {
-      print(e);
-      return e.text;
-    });
+    var result = new List<String>();
+
+    for (var i = 0; i < lstResources.children.length; i++) {
+      final resourceA = new ResourceAllow(lstResources.children[i]);
+
+      if (!resourceA.loaded) {
+        print("resource not loaded");
+      }
+
+      if (resourceA.allowed) {
+        result.add(resourceA.name);
+      }
+    }
+
+    return result;
   }
 
   bool get terms {
@@ -61,11 +73,6 @@ class ClientItem {
   }
 
   Client toDTO() {
-    print("Client Name ${name}");
-    print("Client Url ${url}");
-    print("Client Resources ${resources}");
-    print("Client Terms ${terms}");
-    print("Client Codes ${codes}");
     return new Client(name, secret, url, resources, terms, codes);
   }
 }

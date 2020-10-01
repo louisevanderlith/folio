@@ -36,7 +36,6 @@ class ClientsForm {
           "#chkClientTerms${indx}");
 
       isLoaded = item.loaded;
-      print("Loaded Client ${indx} ${isLoaded}");
       if (isLoaded) {
         result.add(item.toDTO());
       }

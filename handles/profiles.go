@@ -16,23 +16,21 @@ import (
 func GetProfiles(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Profiles", tmpl, "./views/profiles.html")
 	pge.AddMenu(FullMenu())
-	return func(w http.ResponseWriter, r *http.Request) {
 
+	return func(w http.ResponseWriter, r *http.Request) {
 		src := resources.APIResource(http.DefaultClient, r)
 		result, err := src.FetchProfiles("A10")
 
 		if err != nil {
-			log.Println(err)
+			log.Println("Fetch Profiles", err)
 			http.Error(w, "", http.StatusUnauthorized)
 			return
 		}
-		log.Println("Profiles:", result)
-		//result["Next"] = "profiles/B10"
-		//result["Previous"] = ""
+
 		err = mix.Write(w, pge.Create(r, result))
 
 		if err != nil {
-			log.Println(err)
+			log.Println("Serve Error", err)
 		}
 	}
 }
@@ -41,12 +39,11 @@ func SearchProfiles(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Profiles", tmpl, "./views/profiles.html")
 	pge.AddMenu(FullMenu())
 	return func(w http.ResponseWriter, r *http.Request) {
-
 		src := resources.APIResource(http.DefaultClient, r)
 		result, err := src.FetchProfiles(drx.FindParam(r, "pagesize"))
 
 		if err != nil {
-			log.Println(err)
+			log.Println("Fetch Profiles", err)
 			http.Error(w, "", http.StatusUnauthorized)
 			return
 		}
@@ -54,7 +51,7 @@ func SearchProfiles(tmpl *template.Template) http.HandlerFunc {
 		err = mix.Write(w, pge.Create(r, result))
 
 		if err != nil {
-			log.Println(err)
+			log.Println("Serve Error", err)
 		}
 	}
 }
@@ -92,7 +89,7 @@ func ViewProfile(tmpl *template.Template) http.HandlerFunc {
 			return
 		}
 
-		result["Resources"] = CheckResources(profile.(prime.Profile), resources)
+		result["Resources"] = CheckResources(profile, resources)
 
 		err = mix.Write(w, pge.Create(r, result))
 
@@ -111,11 +108,13 @@ func CheckResources(profile prime.Profile, resources records.Page) map[string]ma
 		itor := resources.GetEnumerator()
 		for itor.MoveNext() {
 			rec := itor.Current().(hsk.Record)
-			curr := rec.GetValue().(prime.Resource)
+			curr := rec.GetValue().(*prime.Resource)
 			result[client.Name][curr.Name] = false
 
 			for _, resource := range client.AllowedResources {
-				result[client.Name][resource] = curr.Name == resource
+				if curr.Name == resource {
+					result[client.Name][resource] = true
+				}
 			}
 		}
 		itor.Reset()

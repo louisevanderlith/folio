@@ -31,7 +31,7 @@ class ContactsForm {
           "#txtContactIcon${indx}", "#txtContactValue${indx}");
 
       isLoaded = item.loaded;
-      print("Loaded Contact ${indx} ${isLoaded}");
+
       if (isLoaded) {
         result.add(item.toDTO());
       }

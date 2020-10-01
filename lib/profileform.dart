@@ -30,14 +30,6 @@ class ProfileForm extends FormState {
   void onSubmitClick(MouseEvent e) async {
     if (isFormValid()) {
       disableSubmit(true);
-      print("Title: ${basicForm.title}");
-      print("Description: ${basicForm.description}");
-      print("Contacts: ${contactsForm.items}");
-      print("Image: ${basicForm.imageKey}");
-      print("Clients: ${clientsForm.items}");
-      print("Endpoints: ${basicForm.endpoints}");
-      print("Codes: ${basicForm.codes}");
-      print("Terms: ${basicForm.terms}");
 
       final obj = new Profile(
           basicForm.title,

@@ -1,9 +1,8 @@
 import 'dart:html';
 
 import 'package:mango_artifact/uploadapi.dart';
+import 'package:mango_secure/bodies/mapitem.dart';
 import 'package:mango_ui/keys.dart';
-
-import 'bodies/mapitem.dart';
 
 class BasicSiteForm {
   TextInputElement txtTitle;
@@ -24,67 +23,6 @@ class BasicSiteForm {
 
   void addTermClick(MouseEvent e) {}
 
-  List<MapItem> getEndpoints() {
-    var isLoaded = false;
-    var result = new List<MapItem>();
-    var indx = 0;
-
-    do {
-      var item =
-          new MapItem('#txtEndpointName${indx}', "#txtEndpointValue${indx}");
-
-      isLoaded = item.loaded;
-
-      if (isLoaded) {
-        result.add(item);
-      }
-
-      indx++;
-    } while (isLoaded);
-
-    return result;
-  }
-
-  List<MapItem> getCodes() {
-    var isLoaded = false;
-    var result = new List<MapItem>();
-    var indx = 0;
-
-    do {
-      var item = new MapItem('#txtCodeName${indx}', "#txtCodeValue${indx}");
-
-      isLoaded = item.loaded;
-      print("Loaded Codes ${indx} ${isLoaded}");
-      if (isLoaded) {
-        result.add(item);
-      }
-
-      indx++;
-    } while (isLoaded);
-
-    return result;
-  }
-
-  List<MapItem> getTerms() {
-    var isLoaded = false;
-    var result = new List<MapItem>();
-    var indx = 0;
-
-    do {
-      var item = new MapItem('#txtTermName${indx}', "t#xtTermValue${indx}");
-
-      isLoaded = item.loaded;
-      print("Loaded Terms ${indx} ${isLoaded}");
-      if (isLoaded) {
-        result.add(item);
-      }
-
-      indx++;
-    } while (isLoaded);
-
-    return result;
-  }
-
   String get title {
     return txtTitle.value;
   }
@@ -97,25 +35,15 @@ class BasicSiteForm {
     return new Key(uplProfileImg.dataset['id']);
   }
 
-  Map<String, String> get endpoints {
-    var result = new Map<String, String>();
-
-    result.addEntries(getEndpoints().map((e) => e.toEntry()));
-
-    return result;
+  List<MapItem> get endpoints {
+    return getMapItems("#txtEndpointName", "#txtEndpointValue");
   }
 
-  Map<String, String> get codes {
-    var result = new Map<String, String>();
-    result.addEntries(getCodes().map((e) => e.toEntry()));
-
-    return result;
+  List<MapItem> get codes {
+    return getMapItems("#txtCodeName", "#txtCodeValue");
   }
 
-  Map<String, String> get terms {
-    var result = new Map<String, String>();
-    result.addEntries(getTerms().map((e) => e.toEntry()));
-
-    return result;
+  List<MapItem> get terms {
+    return getMapItems("#txtTermName", "#txtTermValue");
   }
 }

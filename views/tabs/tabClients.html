@@ -74,7 +74,7 @@
                                     <li>
                                         <label class="checkbox">
                                             <input type="checkbox"
-                                                   checked="{{$allow}}"/>
+                                                   {{if $allow}}checked{{end}}/>
                                             {{$rsrc}}</label>
                                     </li>
                                 {{end}}

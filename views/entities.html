@@ -5,33 +5,32 @@
             <thead>
             <tr>
                 <th>Name</th>
-                <th>Registration number</th>
-                <th>Contact details</th>
+                <th>Identification</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
                 <th>Name</th>
-                <th>Registration number</th>
-                <th>Contact details</th>
+                <th>Identification</th>
                 <th>Actions</th>
             </tr>
             </tfoot>
             <tbody>
-            {{range $key, $val := .Data.Records}}
+            {{range $_, $val := .Data.GetRecords.ToSlice}}
+                {{$v := $val.GetValue}}
+                {{$k := $val.GetKey}}
                 <tr>
-                    <td>{{$val.V.Entity.Name}}</td>
-                    <td>{{$val.V.Address.Registration}}</td>
-                    <td>{{$val.V.Contact}}</td>
+                    <td>{{$v.Name}}</td>
+                    <td>{{$v.Identification}}</td>
                     <td>
                         <p class="buttons">
-                            <a href="/entity/entity/{{$val.V.K}}" class="button is-primary">
+                            <a href="/entities/{{$k}}" class="button is-primary">
                             <span class="icon is-small">
                                 <i class="far fa-edit"></i>
                             </span>
                             </a>
-                            <button data-key="{{$val.V.K}}" class="button is-danger deleter">
+                            <button data-key="{{$k}}" class="button is-danger deleter">
                             <span class="icon is-small">
                                 <i class="fas fa-ban"></i>
                             </span>

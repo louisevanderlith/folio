@@ -268,14 +268,14 @@ packages:
       name: mango_artifact
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   mango_secure:
     dependency: "direct main"
     description:
       name: mango_secure
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "1.0.7"
   mango_ui:
     dependency: "direct main"
     description:

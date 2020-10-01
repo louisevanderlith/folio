@@ -11,7 +11,6 @@ func Index(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Index", tmpl, "./views/index.html")
 	pge.AddMenu(FullMenu())
 	return func(w http.ResponseWriter, r *http.Request) {
-
 		err := mix.Write(w, pge.Create(r, nil))
 
 		if err != nil {
