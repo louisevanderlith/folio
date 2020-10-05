@@ -20,7 +20,7 @@ func FullMenu() *menu.Menu {
 	return m
 }
 
-func SetupRoutes(clnt, scrt, securityUrl, authorityUrl string) http.Handler {
+func SetupRoutes(clnt, scrt, securityUrl, managerUrl, authorityUrl string) http.Handler {
 	tmpl, err := drx.LoadTemplate("./views")
 	if err != nil {
 		panic(err)
@@ -32,15 +32,16 @@ func SetupRoutes(clnt, scrt, securityUrl, authorityUrl string) http.Handler {
 	fs := http.FileServer(distPath)
 	r.PathPrefix("/dist/").Handler(http.StripPrefix("/dist/", fs))
 
-	clntIns := middle.NewClientInspector(clnt, scrt, http.DefaultClient, securityUrl, authorityUrl)
+	clntIns := middle.NewClientInspector(clnt, scrt, http.DefaultClient, securityUrl, managerUrl, authorityUrl)
+	r.HandleFunc("/callback", clntIns.Callback).Queries("state", "{state}", "token", "{token}").Methods(http.MethodGet)
 	r.HandleFunc("/", clntIns.Middleware(Index(tmpl), map[string]bool{"entity.info.search": true})).Methods(http.MethodGet)
 
-	r.HandleFunc("/entities", clntIns.Middleware(GetEnitites(tmpl), map[string]bool{"entity.info.search": true})).Methods(http.MethodGet)
-	r.HandleFunc("/entities/{pagesize:[A-Z][0-9]+}", clntIns.Middleware(SearchEntities(tmpl), map[string]bool{"entity.info.search": true})).Methods(http.MethodGet)
-	r.HandleFunc("/entities/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", clntIns.Middleware(SearchEntities(tmpl), map[string]bool{"entity.info.search": true})).Methods(http.MethodGet)
+	r.HandleFunc("/entities", clntIns.Middleware(GetEnitites(tmpl), map[string]bool{"entity.info.search": true, "entity.info.view": true})).Methods(http.MethodGet)
+	r.HandleFunc("/entities/{pagesize:[A-Z][0-9]+}", clntIns.Middleware(SearchEntities(tmpl), map[string]bool{"entity.info.search": true, "entity.info.view": true})).Methods(http.MethodGet)
+	r.HandleFunc("/entities/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", clntIns.Middleware(SearchEntities(tmpl), map[string]bool{"entity.info.search": true, "entity.info.view": true})).Methods(http.MethodGet)
 	r.HandleFunc("/entities/{key:[0-9]+\\x60[0-9]+}", clntIns.Middleware(ViewEntity(tmpl), map[string]bool{"entity.info.view": true, "artifact.uploads.create": true})).Methods(http.MethodGet)
 
-	r.HandleFunc("/profiles", clntIns.Middleware(GetProfiles(tmpl), map[string]bool{"secure.profile.search": true})).Methods(http.MethodGet)
+	r.HandleFunc("/profiles", clntIns.Middleware(GetProfiles(tmpl), map[string]bool{"secure.profile.search": true, "entity.info.view": true})).Methods(http.MethodGet)
 	r.HandleFunc("/profiles/{pagesize:[A-Z][0-9]+}", clntIns.Middleware(SearchProfiles(tmpl), map[string]bool{"secure.profile.search": true})).Methods(http.MethodGet)
 	r.HandleFunc("/profiles/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", clntIns.Middleware(SearchProfiles(tmpl), map[string]bool{"secure.profile.search": true})).Methods(http.MethodGet)
 	r.HandleFunc("/profiles/{key:[0-9]+\\x60[0-9]+}", clntIns.Middleware(ViewProfile(tmpl), map[string]bool{"secure.profile.view": true})).Methods(http.MethodGet)
