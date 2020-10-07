@@ -1,0 +1,12 @@
+{{template "foliopage.html" .}}
+{{define "foliocontent"}}
+    <form id="frmContent" role="form">
+        <div class="field">
+            <div class="control">
+                <label class="label" for="txtTitle">Name</label>
+                <input class="input" type="text" id="txtTitle" placeholder="Title" required value="{{.Data}}"/>
+                <p class="help is-danger"></p>
+            </div>
+        </div>
+    </form>
+{{end}}
