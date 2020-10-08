@@ -34,7 +34,7 @@ func GetEnitites(tmpl *template.Template) http.HandlerFunc {
 
 func SearchEntities(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Entities", tmpl, "./views/entities.html")
-
+	pge.AddMenu(FullMenu())
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		src := resources.APIResource(http.DefaultClient, r)
@@ -57,7 +57,7 @@ func SearchEntities(tmpl *template.Template) http.HandlerFunc {
 
 func ViewEntity(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Entity View", tmpl, "./views/entityview.html")
-
+	pge.AddMenu(FullMenu())
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		key, err := keys.ParseKey(drx.FindParam(r, "key"))

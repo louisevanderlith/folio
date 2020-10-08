@@ -1,38 +1,65 @@
 {{template "foliopage.html" .}}
 {{define "foliocontent"}}
-    <form id="frmBasicsite" role="form">
-        <div class="field">
+<section class="section">
+    <div class="tabs is-boxed is-centered main-menu" id="nav">
+        <ul>
+            <li data-target="paneInfo" id="tabInfo" class="is-active">
+                <a>
+                    <span class="icon is-small"><i class="fa fa-image"></i></span>
+                    <span>Info</span>
+                </a>
+            </li>
+            <li data-target="paneUser" id="tabUser">
+                <a>
+                    <span class="icon is-small"><i class="fab fa-empire"></i></span>
+                    <span>User</span>
+                </a>
+            </li>
+            <li data-target="paneAddresses" id="tabAddresses">
+                <a>
+                    <span class="icon is-small"><i class="fab fa-superpowers"></i></span>
+                    <span>Address</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <form id="frmProfile" role="form">
             <div class="control">
-                <label class="label" for="txtTitle">Name</label>
-                <input class="input" type="text" id="txtTitle" placeholder="Title" required value="{{.Data.Name}}"/>
-                <p class="help is-danger"></p>
+                <button type="button" class="button is-link is-medium" id="btnSubmit">Save
+                </button>
             </div>
-        </div>
-
-        <div class="field">
-            <div class="control">
-                <label class="label" for="txtDescription">Registration number</label>
-                <textarea class="textarea" id="txtDescription" placeholder="Description" required cols="40"
-                          rows="5">{{.Data.Description}}</textarea>
-                <p class="help is-danger"></p>
+            <div class="content">
+                <div class="tab-pane is-active" id="paneInfo">
+                    <div class="field">
+                        <div class="control">
+                            <label class="label" for="txtInfo">Info</label>
+                            {{ template "tabEntityInfo.html" .}}
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="field">
-            <div class="control">
-                <label class="label" for="txtEmail">Email</label>
-                <input class="input" type="email" id="txtEmail" required value="{{.Data.ContactEmail}}"/>
-                <p class="help is-danger"></p>
+            <div class="content">
+                <div class="tab-pane c" id="paneUser">
+                    <div class="field">
+                        <div class="control">
+                            <label class="label" for="txtUser">User</label>
+                            {{ template "tabUser.html" .}}
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="field">
-            <div class="control">
-                <label class="label" for="txtPhone">Phone</label>
-                <input class="input" type="tel" id="txtPhone" minlength="9" maxlength="10" required
-                       value="{{.Data.ContactPhone}}"/>
-                <p class="help is-danger"></p>
+            <div class="content">
+                <div class="tab-pane c" id="paneAddresses">
+                    <div class="field">
+                        <div class="control">
+                            <label class="label" for="txtAdresses">Address</label>
+                            {{ template "tabEntityAddress.html" .}}
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
+</section>
 {{end}}

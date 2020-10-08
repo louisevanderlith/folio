@@ -37,7 +37,7 @@ func GetResource(tmpl *template.Template) http.HandlerFunc {
 func SearchResource(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Resources", tmpl, "./views/resources.html")
 	return func(w http.ResponseWriter, r *http.Request) {
-
+		pge.AddMenu(FullMenu())
 		src := resources.APIResource(http.DefaultClient, r)
 		result, err := src.FetchResources(drx.FindParam(r, "pagesize"))
 
@@ -64,7 +64,7 @@ func SearchResource(tmpl *template.Template) http.HandlerFunc {
 
 func ViewResource(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Resource View", tmpl, "./views/resourceview.html")
-
+	pge.AddMenu(FullMenu())
 	return func(w http.ResponseWriter, r *http.Request) {
 		key, err := keys.ParseKey(drx.FindParam(r, "key"))
 
