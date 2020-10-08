@@ -1,60 +1,63 @@
-<button type="button" class="button is-info is-small" id="btnAddContact">Add Contact</button>
-<hr />
-<div class="content">
-    <div class="field">
-        <div class="control">
-            <label class="label" for="txtUserName">Name</label>
-            <input class="input" type="text" id="txtUserName" placeholder="Name" required value="{{.Data.User.Name}}" />
-            <p class="help is-danger"></p>
-        </div>
-    </div>
-    <div class="field">
-        <div class="control">
-            <label class="checkbox" for="txtUserVerified">
-                <input class="checkbox" type="checkbox" id="txtUserVerified" placeholder="Verified" required
-                    value="{{.Data.User.Verified}}" />Verified</label>
-            <p class="help is-danger"></p>
-        </div>
-    </div>
-    <div class="field">
-        <div class="control">
-            <label class="label" for="txtUserEmail">E-mail
-                <input class="input" type="text" id="txtUserEmail" placeholder="Email" required
-                    value="{{.Data.User.Email}}" />
+<form id="frmEntityUser" role="form">
+    <button type="button" class="button is-info is-small" id="btnAddContact">Add Contact</button>
+    <hr />
+    <div class="content">
+        <div class="field">
+            <div class="control">
+                <label class="label" for="txtUserName">Name</label>
+                <input class="input" type="text" id="txtUserName" placeholder="Name" required
+                    value="{{.Data.User.Name}}" />
                 <p class="help is-danger"></p>
-            </label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label class="checkbox" for="txtUserVerified">
+                    <input class="checkbox" type="checkbox" id="txtUserVerified" placeholder="Verified" required
+                        value="{{.Data.User.Verified}}" />Verified</label>
+                <p class="help is-danger"></p>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label class="label" for="txtUserEmail">E-mail
+                    <input class="input" type="text" id="txtUserEmail" placeholder="Email" required
+                        value="{{.Data.User.Email}}" />
+                    <p class="help is-danger"></p>
+                </label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label class="label" for="txtUserEmail">Password</label>
+                <input class="input" type="text" id="txtUserPassword" placeholder="Password" required
+                    value="{{.Data.UserPassword}}" />
+                <p class="help is-danger"></p>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label class="label" for="txtUserContacts">Contacts</label>
+                <input class="input" type="text" id="txtUserContacts" placeholder="User" required
+                    value="{{.Data.User.Contacts}}" />
+                <p class="help is-danger"></p>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label class="label" for="txtUserSources">Resources</label>
+                <input class="input" type="text" id="txtUserResources" placeholder="Resources" required
+                    value="{{.Data.User.Resources}}" />
+                <p class="help is-danger"></p>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label class="label" for="txtUserRoles">Roles</label>
+                <input class="input" type="text" id="txtUserRoles" placeholder="Roles" required
+                    value="{{.Data.User.Roles}}" />
+                <p class="help is-danger"></p>
+            </div>
         </div>
     </div>
-    <div class="field">
-        <div class="control">
-            <label class="label" for="txtUserEmail">Password</label>
-            <input class="input" type="text" id="txtUserPassword" placeholder="Password" required
-                value="{{.Data.UserPassword}}" />
-            <p class="help is-danger"></p>
-        </div>
-    </div>
-    <div class="field">
-        <div class="control">
-            <label class="label" for="txtUserContacts">Contacts</label>
-            <input class="input" type="text" id="txtUserContacts" placeholder="User" required
-                value="{{.Data.User.Contacts}}" />
-            <p class="help is-danger"></p>
-        </div>
-    </div>
-    <div class="field">
-        <div class="control">
-            <label class="label" for="txtUserSources">Resources</label>
-            <input class="input" type="text" id="txtUserResources" placeholder="Resources" required
-                value="{{.Data.User.Resources}}" />
-            <p class="help is-danger"></p>
-        </div>
-    </div>
-    <div class="field">
-        <div class="control">
-            <label class="label" for="txtUserRoles">Roles</label>
-            <input class="input" type="text" id="txtUserRoles" placeholder="Roles" required
-                value="{{.Data.User.Roles}}" />
-            <p class="help is-danger"></p>
-        </div>
-    </div>
-</div>
+</form>
