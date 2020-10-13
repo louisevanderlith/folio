@@ -1,18 +1,18 @@
-<form id="frmEntityInfo" role="form">
+<form id="frmContentInfo" role="form">
     <hr />
-    <div id="dvContentBanner" class="content cc">
+    <div id="dvContentInfo" class="content cc">
         <div class="field">
             <div class="control">
-                <label class="label" for="txtUserName">Header</label>
-                <input class="input" type="text" id="txtProfile" placeholder="Profile" required
+                <label class="label" for="txtInfoHeader">Header</label>
+                <input class="input" type="text" id="txtInfoHeader" placeholder="Header" required
                     value="{{.Data.Info.Heading}}" />
                 <p class="help is-danger"></p>
             </div>
         </div>
         <div class="field">
             <div class="control">
-                <label class="label" for="txtUserVerified">Text</label>
-                <input class="input" type="text" id="txtLanguage" placeholder="Language" required
+                <label class="label" for="txtContentInfoText">Text</label>
+                <input class="input" type="text" id="txtContentInfoText" placeholder="Language" required
                     value="{{.Data.Info.Text}}" />
                 <p class="help is-danger"></p>
             </div>
