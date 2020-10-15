@@ -34,7 +34,7 @@ func GetAllContent(tmpl *template.Template) http.HandlerFunc {
 
 func SearchContent(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Content", tmpl, "./views/content.html")
-
+	pge.AddMenu(FullMenu())
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		src := resources.APIResource(http.DefaultClient, r)
@@ -57,7 +57,7 @@ func SearchContent(tmpl *template.Template) http.HandlerFunc {
 
 func ViewContent(tmpl *template.Template) http.HandlerFunc {
 	pge := mix.PreparePage("Content View", tmpl, "./views/contentview.html")
-
+	pge.AddMenu(FullMenu())
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		key, err := keys.ParseKey(drx.FindParam(r, "key"))
