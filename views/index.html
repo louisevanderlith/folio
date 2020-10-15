@@ -11,7 +11,7 @@
         <div class="tile is-parent">
             <article class="tile is-child box">
                 <p class="title">59k</p>
-                <p class="subtitle colourSecondary">Products</p>
+                <p class="subtitle colourSecondary">Entities</p>
             </article>
         </div>
         <div class="tile is-parent">
@@ -36,22 +36,22 @@
                     Events
                 </p>
                 <a href="#" class="card-header-icon" aria-label="more options">
-                <span class="icon">
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                </span>
+                    <span class="icon">
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    </span>
                 </a>
             </header>
             <div class="card-table">
                 <div class="content">
                     <table class="table is-fullwidth is-striped">
                         <tbody>
-                        {{range $key, $val := .Data}}
+                            {{range $key, $val := .Data}}
                             <tr>
                                 <td width="5%"><i class="fa fa-bell-o"></i></td>
                                 <td>{{$key}}</td>
                                 <td><a class="button is-small is-primary" href="{{$val}}">Visit</a></td>
                             </tr>
-                        {{end}}
+                            {{end}}
                         </tbody>
                     </table>
                 </div>
@@ -65,12 +65,12 @@
         <div class="card">
             <header class="card-header">
                 <p class="card-header-title">
-                    Inventory Search
+                    Entity Search
                 </p>
                 <a href="#" class="card-header-icon" aria-label="more options">
-                <span class="icon">
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                </span>
+                    <span class="icon">
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    </span>
                 </a>
             </header>
             <div class="card-content">
@@ -78,11 +78,11 @@
                     <div class="control has-icons-left has-icons-right">
                         <input class="input is-large" type="text" placeholder="">
                         <span class="icon is-medium is-left">
-                        <i class="fa fa-search"></i>
-                    </span>
+                            <i class="fa fa-search"></i>
+                        </span>
                         <span class="icon is-medium is-right">
-                        <i class="fa fa-check"></i>
-                    </span>
+                            <i class="fa fa-check"></i>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -93,9 +93,9 @@
                     User Search
                 </p>
                 <a href="#" class="card-header-icon" aria-label="more options">
-                <span class="icon">
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                </span>
+                    <span class="icon">
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    </span>
                 </a>
             </header>
             <div class="card-content">
@@ -103,11 +103,11 @@
                     <div class="control has-icons-left has-icons-right">
                         <input class="input is-large" type="text" placeholder="">
                         <span class="icon is-medium is-left">
-                        <i class="fa fa-search"></i>
-                    </span>
+                            <i class="fa fa-search"></i>
+                        </span>
                         <span class="icon is-medium is-right">
-                        <i class="fa fa-check"></i>
-                    </span>
+                            <i class="fa fa-check"></i>
+                        </span>
                     </div>
                 </div>
             </div>
