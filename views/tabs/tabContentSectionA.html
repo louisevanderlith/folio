@@ -28,8 +28,10 @@
         <div class="field">
             <div class="control">
                 <label class="label" for="txtContentImageKey">Image Key</label>
-                <input class="input" type="text" id="txtContentImageKey" placeholder="Language" required
-                    value="{{.Data.SectionA.ImageKey}}" />
+                <input type="image" id="uplContentImageKey"
+                    class='image {{if eq (print .Data.SectionA.ImageKey) "0`0"}} is-hidden {{end}}'
+                    src="{{ .Identity.GetResourceURL "artifact" }}/download/{{.Data.SectionA.ImageKey}}"
+                    alt="Section A image" />
                 <p class="help is-danger"></p>
             </div>
         </div>

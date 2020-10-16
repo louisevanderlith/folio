@@ -3,17 +3,21 @@
     <div id="dvContentBanner" class="content cc">
         <div class="field">
             <div class="control">
-                <label class="label" for="txtBackground">Background</label>
-                <input class="input" type="text" id="txtBannerBackground" placeholder="Background" required
-                    value="{{.Data.Banner.Background}}" />
+                <label class="label" for="uplBackground">Background</label>
+                <input type="image" id="uplBannerBackground"
+                    class='image {{if eq (print .Data.Banner.Background) "0`0"}} is-hidden {{end}}'
+                    src="{{ .Identity.GetResourceURL "artifact" }}/download/{{.Data.Banner.Background}}"
+                    alt="Banner Background" />
                 <p class="help is-danger"></p>
             </div>
         </div>
         <div class="field">
             <div class="control">
-                <label class="label" for="txtBannerImage">Image</label>
-                <input class="input" type="text" id="txtBannerImage" placeholder="Image" required
-                    value="{{.Data.Banner.Image}}" />
+                <label class="label" for="uplBannerImage">Image</label>
+                <input type="image" id="uplBannerImage"
+                    class='image {{if eq (print .Data.Banner.Image) "0`0"}} is-hidden {{end}}'
+                    src="{{ .Identity.GetResourceURL "artifact" }}/download/{{.Data.Banner.Image}}"
+                    alt="Banner Image" />
                 <p class="help is-danger"></p>
             </div>
         </div>

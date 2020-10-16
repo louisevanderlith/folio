@@ -1,17 +1,17 @@
 {{template "foliopage.html" .}}
 {{define "foliocontent"}}
-    <section class="hero is-info welcome is-small">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    Users
-                </h1>
-            </div>
+<section class="hero is-info welcome is-small">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Users
+            </h1>
         </div>
-    </section>
-    <section class="section">
-        <table class="table is-fullwidth is-hoverable" id="dataTable">
-            <thead>
+    </div>
+</section>
+<section class="section">
+    <table class="table is-fullwidth is-hoverable" id="dataTable">
+        <thead>
             <tr>
                 <th>Name</th>
                 <th>Verified</th>
@@ -19,8 +19,8 @@
                 <th>Last Login</th>
                 <th>Actions</th>
             </tr>
-            </thead>
-            <tfoot>
+        </thead>
+        <tfoot>
             <tr>
                 <th>Name</th>
                 <th>Verified</th>
@@ -28,29 +28,29 @@
                 <th>Last Login</th>
                 <th>Actions</th>
             </tr>
-            </tfoot>
-            <tbody>
+        </tfoot>
+        <tbody>
             {{range $_, $val := .Data.GetRecords.ToSlice}}
-                {{$v := $val.GetValue}}
-                {{$k := $val.GetKey}}
-                <tr>
-                    <td>{{$v.Name}}</td>
-                    <td>{{$v.Verified}}</td>
-                    <td>{{$v.DateCreated}}</td>
-                    <td>{{$v.Size}}</td>
-                    <td>
-                        <p class="buttons">
-                            <a href="/users/{{$k}}" class="button is-primary">
+            {{$v := $val.GetValue}}
+            {{$k := $val.GetKey}}
+            <tr>
+                <td>{{$v.Name}}</td>
+                <td>{{$v.Verified}}</td>
+                <td>{{$v.DateCreated}}</td>
+                <td>{{$v.Size}}</td>
+                <td>
+                    <p class="buttons">
+                        <a href="/users/{{$k}}" class="button is-primary">
                             <span class="icon is-small">
                                 <i class="fas fa-file-alt"></i>
                             </span>
-                            </a>
-                        </p>
-                    </td>
-                </tr>
+                        </a>
+                    </p>
+                </td>
+            </tr>
             {{end}}
-            </tbody>
-        </table>
-        {{template "pager.html" .Data}}
-    </section>
+        </tbody>
+    </table>
+    {{template "pager.html" .Data}}
+</section>
 {{end}}
