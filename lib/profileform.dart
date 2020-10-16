@@ -11,7 +11,7 @@ import 'clientsform.dart';
 import 'contactsform.dart';
 
 class ProfileForm extends FormState {
-  Key _objKey;
+    Key _objKey;
 
   BasicSiteForm basicForm;
   ContactsForm contactsForm;
@@ -19,7 +19,6 @@ class ProfileForm extends FormState {
 
   ProfileForm(Key k) : super("#frmProfile", "#btnSubmit") {
     _objKey = k;
-    print("Working on ${k.toJson()}");
     basicForm = new BasicSiteForm();
     contactsForm = new ContactsForm();
     clientsForm = new ClientsForm();

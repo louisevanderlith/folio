@@ -13,3 +13,4 @@ dependencies:
   dart_toast: '^0.3.0'
   mango_secure: '^1.0.8'
   mango_artifact: '^1.0.1'
+  mango_entity: '^1.0.3'
