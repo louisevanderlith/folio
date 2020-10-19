@@ -1,23 +1,57 @@
 <form id="frmContentBanner" role="form">
-    <hr />
+    <hr/>
     <div id="dvContentBanner" class="content cc">
         <div class="field">
+            <label class="label" for="uplBannerBackgroundImg">Logo</label>
             <div class="control">
-                <label class="label" for="uplBackground">Background</label>
-                <input type="image" id="uplBannerBackground"
-                    class='image {{if eq (print .Data.Banner.Background) "0`0"}} is-hidden {{end}}'
-                    src="{{ .Identity.GetResourceURL "artifact" }}/download/{{.Data.Banner.Background}}"
-                    alt="Banner Background" />
+                <div class="file">
+                    <label class="file-label">
+                        <input class="file-input" type="file" multiple="false" data-for="logo" data-name="Banner"
+                               data-id="{{.Data.Banner.Background}}" accept=".jpg, .jpeg, .png"
+                               id="uplBannerBackgroundImg"
+                               placeholder="Banner Image" {{if eq (print .Data.Banner.Background) "0`0" }} required {{end}} />
+                        <p class="help is-danger"></p>
+                        <span class="file-cta">
+                        <span class="file-icon">
+                            <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="file-label">
+                            Choose an image.
+                        </span>
+                    </span>
+                    </label>
+                </div>
+                <input type="image" id="uplBannerBackgroundView"
+                       class='image {{if eq (print .Data.Banner.Background) "0`0"}} is-hidden {{end}}'
+                       src="{{ .Identity.GetResourceURL "artifact" }}/download/{{.Data.Banner.Background}}"
+                       alt="profile image"/>
                 <p class="help is-danger"></p>
             </div>
         </div>
         <div class="field">
+            <label class="label" for="uplBannerImg">Logo</label>
             <div class="control">
-                <label class="label" for="uplBannerImage">Image</label>
-                <input type="image" id="uplBannerImage"
-                    class='image {{if eq (print .Data.Banner.Image) "0`0"}} is-hidden {{end}}'
-                    src="{{ .Identity.GetResourceURL "artifact" }}/download/{{.Data.Banner.Image}}"
-                    alt="Banner Image" />
+                <div class="file">
+                    <label class="file-label">
+                        <input class="file-input" type="file" multiple="false" data-for="logo" data-name="Banner"
+                               data-id="{{.Data.Banner.Image}}" accept=".jpg, .jpeg, .png"
+                               id="uplBannerImg"
+                               placeholder="Banner Image" {{if eq (print .Data.Banner.Image) "0`0" }} required {{end}} />
+                        <p class="help is-danger"></p>
+                        <span class="file-cta">
+                        <span class="file-icon">
+                            <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="file-label">
+                            Choose an image.
+                        </span>
+                    </span>
+                    </label>
+                </div>
+                <input type="image" id="uplBannerView"
+                       class='image {{if eq (print .Data.Banner.Image) "0`0"}} is-hidden {{end}}'
+                       src="{{ .Identity.GetResourceURL "artifact" }}/download/{{.Data.Banner.Image}}"
+                       alt="profile image"/>
                 <p class="help is-danger"></p>
             </div>
         </div>
@@ -25,7 +59,7 @@
             <div class="control">
                 <label class="label" for="txtBannerHeading">Heading</label>
                 <input class="input" type="text" id="txtBannerHeading" placeholder="Heading" required
-                    value="{{.Data.Banner.Heading}}" />
+                       value="{{.Data.Banner.Heading}}"/>
                 <p class="help is-danger"></p>
             </div>
         </div>
@@ -33,7 +67,7 @@
             <div class="control">
                 <label class="label" for="txtBannerSubtitle">Subtitle</label>
                 <input class="input" type="text" id="txtBannerSubtitle" placeholder="Subtitle" required
-                    value="{{.Data.Banner.Subtitle}}" />
+                       value="{{.Data.Banner.Subtitle}}"/>
                 <p class="help is-danger"></p>
             </div>
         </div>

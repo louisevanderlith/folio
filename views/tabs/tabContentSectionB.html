@@ -1,11 +1,11 @@
 <form id="frmContentSectionB" role="form">
-    <hr />
+    <hr/>
     <div id="dvContentSectionB" class="content cc">
         <div class="field">
             <div class="control">
                 <label class="label" for="txtContentHeader">Header</label>
                 <input class="input" type="text" id="txtContentHeader" placeholder="Profile" required
-                    value="{{.Data.SectionB.Heading}}" />
+                       value="{{.Data.SectionB.Heading}}"/>
                 <p class="help is-danger"></p>
             </div>
         </div>
@@ -13,7 +13,7 @@
             <div class="control">
                 <label class="label" for="txtContentSection">Content</label>
                 <input class="input" type="text" id="txtContentSection" placeholder="Language" required
-                    value="{{.Data.SectionB.Text}}" />
+                       value="{{.Data.SectionB.Text}}"/>
                 <p class="help is-danger"></p>
             </div>
         </div>
@@ -21,17 +21,34 @@
             <div class="control">
                 <label class="label" for="txtContentImageURL">Image URL</label>
                 <input class="input" type="text" id="txtContentImageURL" placeholder="Language" required
-                    value="{{.Data.SectionB.ImageUrl}}" />
+                       value="{{.Data.SectionB.ImageUrl}}"/>
                 <p class="help is-danger"></p>
             </div>
         </div>
         <div class="field">
+            <label class="label" for="uplSectionBImg">Logo</label>
             <div class="control">
-                <label class="label" for="txtContentImageKey">Image Key</label>
-                <input type="image" id="uplContentImageKey"
-                    class='image {{if eq (print .Data.SectionB.ImageKey) "0`0"}} is-hidden {{end}}'
-                    src="{{ .Identity.GetResourceURL "artifact" }}/download/{{.Data.SectionB.ImageKey}}"
-                    alt="Section B image" />
+                <div class="file">
+                    <label class="file-label">
+                        <input class="file-input" type="file" multiple="false" data-for="logo" data-name="Banner"
+                               data-id="{{.Data.SectionB.ImageKey}}" accept=".jpg, .jpeg, .png"
+                               id="uplSectionAImg"
+                               placeholder="Banner Image" {{if eq (print .Data.SectionB.ImageKey) "0`0" }} required {{end}} />
+                        <p class="help is-danger"></p>
+                        <span class="file-cta">
+                        <span class="file-icon">
+                            <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="file-label">
+                            Choose an image.
+                        </span>
+                    </span>
+                    </label>
+                </div>
+                <input type="image" id="uplSectionBView"
+                       class='image {{if eq (print .Data.SectionB.ImageKey) "0`0"}} is-hidden {{end}}'
+                       src="{{ .Identity.GetResourceURL "artifact" }}/download/{{.Data.SectionB.ImageKey}}"
+                       alt="profile image"/>
                 <p class="help is-danger"></p>
             </div>
         </div>
