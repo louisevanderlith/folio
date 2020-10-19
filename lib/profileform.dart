@@ -11,14 +11,14 @@ import 'clientsform.dart';
 import 'contactsform.dart';
 
 class ProfileForm extends FormState {
-    Key _objKey;
+  Key objKey;
 
   BasicSiteForm basicForm;
   ContactsForm contactsForm;
   ClientsForm clientsForm;
 
   ProfileForm(Key k) : super("#frmProfile", "#btnSubmit") {
-    _objKey = k;
+    objKey = k;
     basicForm = new BasicSiteForm();
     contactsForm = new ContactsForm();
     clientsForm = new ClientsForm();
@@ -41,8 +41,8 @@ class ProfileForm extends FormState {
           basicForm.terms);
 
       HttpRequest req;
-      if (_objKey.toJson() != "0`0") {
-        req = await updateProfile(_objKey, obj);
+      if (objKey.toJson() != "0`0") {
+        req = await updateProfile(objKey, obj);
       } else {
         req = await createProfile(obj);
       }
@@ -55,7 +55,7 @@ class ProfileForm extends FormState {
 
         if (rec != null) {
           final key = rec['K'];
-          _objKey = key;
+          objKey = key;
         }
       }
     }
