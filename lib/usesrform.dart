@@ -1,9 +1,9 @@
 import 'dart:html';
 
 import 'package:FOLIO.APP/contactsform.dart';
-import 'package:mango_secure/bodies/contact.dart';
 import 'package:mango_entity/bodies/role.dart';
 import 'package:mango_entity/bodies/user.dart';
+import 'package:mango_secure/bodies/contact.dart';
 
 class UserForm {
   TextInputElement txtName;
@@ -46,7 +46,8 @@ class UserForm {
   }
 
   List<String> get resources {
-    return ulResources.children.map((e) => e.text); new List<String>();
+    return ulResources.children.map((e) => e.text);
+    new List<String>();
   }
 
   List<Role> get roles {
@@ -54,6 +55,7 @@ class UserForm {
   }
 
   User toDTO() {
-    return new User(this.name, this.isVerified, this.email, this.password,this.contacts, this.resources, this.roles);
+    return new User(this.name, this.isVerified, this.email, this.password,
+        this.contacts, this.resources, this.roles);
   }
 }

@@ -27,7 +27,6 @@ class EntityForm extends FormState {
     querySelector("#btnSubmit").onClick.listen(onSubmitClick);
   }
 
-
   List<Address> get address {
     return addressesForm.items;
   }
@@ -40,9 +39,8 @@ class EntityForm extends FormState {
     if (isFormValid()) {
       disableSubmit(true);
 
-      final obj = new Entity(
-          infoForm.name, infoForm.profileKey, user, infoForm.identification, address
-      );
+      final obj = new Entity(infoForm.name, infoForm.profileKey, user,
+          infoForm.identification, address);
 
       HttpRequest req;
       if (_objKey.toJson() != "0`0") {
