@@ -1,69 +1,92 @@
-<form id="frmEntityAddress" role="form">
-    <hr />
-    <div id="dvEntityAddress" class="content cc">
-        <div class="field">
-            <div class="control">
-                <label class="label" for="numStreet">Street</label>
-                <input class="input" type="number" id="numStreet" placeholder="Street Name" required
-                    value="{{.Data.Address.Street}}" />
-                <p class="help is-danger"></p>
+{{range $key, $val := .Data.Addresses}}
+<div class="card">
+    <header class="card-header">
+        <p class="card-header-title">
+            {{$val.Street}}
+        </p>
+        <a class="card-header-icon" aria-label="more options">
+            <span class="icon">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+        </a>
+    </header>
+    <div class="card-content" hidden>
+        <div class="content">
+            <div class="field">
+                <label class="label" for="intStreetNo{{$key}}">Street No</label>
+                <div class="control">
+                    <input class="input" type="text" id="intStreetNo{{$key}}" required value="{{$val.StreetNo}}" />
+                    <p class="help is-danger"></p>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="txtStreet{{$key}}">Street Name</label>
+                <div class="control">
+                    <input class="input" type="text" id="txtStreet{{$key}}" required value="{{$val.Street}}" />
+                    <p class="help is-danger"></p>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="txtUnitNo{{$key}}">Unit No</label>
+                <div class="control">
+                    <input class="input" type="text" id="txtUnitNo{{$key}}" required value="{{$val.UnitNo}}" />
+                    <p class="help is-danger"></p>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="txtEstateName{{$key}}">Estate Name</label>
+                <div class="control">
+                    <input class="input" type="text" id="txtEstateName{{$key}}" required value="{{$val.EstateName}}" />
+                    <p class="help is-danger"></p>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="txtSuburb{{$key}}">Suburb</label>
+                <div class="control">
+                    <input class="input" type="text" id="txtSuburb{{$key}}" required value="{{$val.Suburb}}" />
+                    <p class="help is-danger"></p>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="txtCity{{$key}}">City</label>
+                <div class="control">
+                    <input class="input" type="text" id="txtCity{{$key}}" required value="{{$val.City}}" />
+                    <p class="help is-danger"></p>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="txtProvince{{$key}}">Province</label>
+                <div class="control">
+                    <input class="input" type="text" id="txtProvince{{$key}}" required value="{{$val.Province}}" />
+                    <p class="help is-danger"></p>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="txtPostalCode{{$key}}">Postal Code</label>
+                <div class="control">
+                    <input class="input" type="text" id="txtPostalCode{{$key}}" required value="{{$val.PostalCode}}" />
+                    <p class="help is-danger"></p>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="txtCoordinates{{$key}}">Coordinates</label>
+                <div class="control">
+                    <input class="input" type="text" id="txtCoordinates{$key}}" required
+                        value="{{$val.Coordinates}}" />
+                    <p class="help is-danger"></p>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="txtIsDelivery{{$key}}">Delivery Address</label>
+                <div class="control">
+                    <input class="input" type="text" id="txtIsDelivery{{$key}}" required value="{{$val.IsDelivery}}" />
+                    <p class="help is-danger"></p>
+                </div>
             </div>
         </div>
-        <div class="field">
-            <div class="control">
-                <label class="label" for="txtUnit">Unit No.</label>
-                <input class="input" type="text" id="txtUnit" placeholder="Unit no." required
-                    value="{{.Data.Address.UnitNo}}" />
-                <p class="help is-danger"></p>
-            </div>
-        </div>
-        <div class="field">
-            <div class="control">
-                <label class="label" for="txtEstate">Estate Name</label>
-                <input class="input" type="text" id="txtEstate" placeholder="Estate Name" required
-                    value="{{.Data.Address.EstateName}}" />
-                <p class="help is-danger"></p>
-            </div>
-        </div>
-        <div class="field">
-            <div class="control">
-                <label class="label" for="txtSuburb">Suburb</label>
-                <input class="input" type="text" id="txtSuburb" placeholder="Suburb" required
-                    value="{{.Data.Address.Suburb}}" />
-                <p class="help is-danger"></p>
-            </div>
-        </div>
-        <div class="field">
-            <div class="control">
-                <label class="label" for="txtCity">City</label>
-                <input class="input" type="text" id="txtCity" placeholder="City" required
-                    value="{{.Data.Address.City}}" />
-                <p class="help is-danger"></p>
-            </div>
-        </div>
-        <div class="field">
-            <div class="control">
-                <label class="label" for="txtProvince">Address</label>
-                <input class="input" type="text" id="txtProvince" placeholder="Province" required
-                    value="{{.Data.Address.Province}}" />
-                <p class="help is-danger"></p>
-            </div>
-        </div>
-        <div class="field">
-            <div class="control">
-                <label class="label" for="txtCoordinates">Coordinates</label>
-                <input class="input" type="text" id="txtCoordinates" placeholder="Coordinates" required
-                    value="{{.Data.Address.Coordinates}}" />
-                <p class="help is-danger"></p>
-            </div>
-        </div>
-        <div class="field">
-            <div class="control">
-                <label class="checkbox" for="txtIsDelivery">
-                    <input class="checkbox" type="checkbox" id="txtIsDelivery" required
-                        value="{{.Data.Adress.IsDelivery}}" />Delivery</label>
-                <p class="help is-danger"></p>
-            </div>
-        </div>
+        <footer class="card-footer">
+            <a href="#{{.}}" class="card-footer-item Delete">Delete</a>
+        </footer>
     </div>
-</form>
+</div>
+{{end}}
