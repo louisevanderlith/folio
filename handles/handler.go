@@ -1,66 +1,58 @@
 package handles
 
 import (
-	"github.com/louisevanderlith/droxolite/drx"
-	"github.com/louisevanderlith/droxolite/menu"
-	"github.com/louisevanderlith/kong/middle"
-	"net/http"
-
 	"github.com/gorilla/mux"
+	"github.com/louisevanderlith/droxolite/open"
+	"github.com/rs/cors"
+	"net/http"
 )
 
-func FullMenu() *menu.Menu {
-	m := menu.NewMenu()
-
-	m.AddItem(menu.NewItem("a", "/", "Home", nil))
-	m.AddItem(menu.NewItem("b", "/profiles", "Profiles", nil))
-	m.AddItem(menu.NewItem("c", "/entities", "Entities", nil))
-	m.AddItem(menu.NewItem("d", "/resources", "Resources", nil))
-	m.AddItem(menu.NewItem("e", "/content", "Content Management", nil))
-
-	return m
-}
-
-func SetupRoutes(clnt, scrt, securityUrl, managerUrl, authorityUrl string) http.Handler {
-	tmpl, err := drx.LoadTemplate("./views")
-	if err != nil {
-		panic(err)
-	}
-
+func SetupRoutes(issuer, audience string) http.Handler {
 	r := mux.NewRouter()
 
-	distPath := http.FileSystem(http.Dir("dist/"))
-	fs := http.FileServer(distPath)
-	r.PathPrefix("/dist/").Handler(http.StripPrefix("/dist/", fs))
+	mw := open.BearerMiddleware(audience, issuer)
 
-	clntIns := middle.NewClientInspector(clnt, scrt, http.DefaultClient, securityUrl, managerUrl, authorityUrl)
-	r.HandleFunc("/callback", clntIns.Callback).Queries("state", "{state}", "token", "{token}").Methods(http.MethodGet)
-	r.HandleFunc("/", clntIns.Middleware(Index(tmpl), map[string]bool{"entity.info.search": true})).Methods(http.MethodGet)
+	//cnt := ins.Middleware("cms.content.view", scrt, DisplayContent)
+	r.Handle("/display", mw.Handler(http.HandlerFunc(DisplayContent))).Methods(http.MethodGet)
 
-	r.HandleFunc("/entities", clntIns.Middleware(GetEnitites(tmpl), map[string]bool{"entity.info.search": true, "entity.info.view": true})).Methods(http.MethodGet)
-	r.HandleFunc("/entities/{pagesize:[A-Z][0-9]+}", clntIns.Middleware(SearchEntities(tmpl), map[string]bool{"entity.info.search": true, "entity.info.view": true})).Methods(http.MethodGet)
-	r.HandleFunc("/entities/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", clntIns.Middleware(SearchEntities(tmpl), map[string]bool{"entity.info.search": true, "entity.info.view": true})).Methods(http.MethodGet)
-	r.HandleFunc("/entities/{key:[0-9]+\\x60[0-9]+}", clntIns.Middleware(ViewEntity(tmpl), map[string]bool{"entity.info.view": true, "artifact.uploads.create": true})).Methods(http.MethodGet)
+	r.HandleFunc("/colour/{profile:[a-z]+}", ProfileColour)
 
-	r.HandleFunc("/content", clntIns.Middleware(GetAllContent(tmpl), map[string]bool{"cms.content.search": true, "entity.info.view": true})).Methods(http.MethodGet)
-	r.HandleFunc("/content/{pagesize:[A-Z][0-9]+}", clntIns.Middleware(SearchContent(tmpl), map[string]bool{"cms.content.search": true, "entity.info.view": true})).Methods(http.MethodGet)
-	r.HandleFunc("/content/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", clntIns.Middleware(SearchContent(tmpl), map[string]bool{"cms.content.search": true, "entity.info.view": true})).Methods(http.MethodGet)
-	r.HandleFunc("/content/{key:[0-9]+\\x60[0-9]+}", clntIns.Middleware(ViewContent(tmpl), map[string]bool{"cms.content.view": true, "artifact.uploads.create": true, "entity.info.view": true})).Methods(http.MethodGet)
+	//get := ins.Middleware("cms.content.search", scrt, GetContent)
+	r.Handle("/content", mw.Handler(http.HandlerFunc(GetContent))).Methods(http.MethodGet)
 
-	r.HandleFunc("/profiles", clntIns.Middleware(GetProfiles(tmpl), map[string]bool{"secure.profile.search": true, "entity.info.view": true})).Methods(http.MethodGet)
-	r.HandleFunc("/profiles/{pagesize:[A-Z][0-9]+}", clntIns.Middleware(SearchProfiles(tmpl), map[string]bool{"secure.profile.search": true, "entity.info.view": true})).Methods(http.MethodGet)
-	r.HandleFunc("/profiles/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", clntIns.Middleware(SearchProfiles(tmpl), map[string]bool{"secure.profile.search": true, "entity.info.view": true})).Methods(http.MethodGet)
-	r.HandleFunc("/profiles/{key:[0-9]+\\x60[0-9]+}", clntIns.Middleware(ViewProfile(tmpl), map[string]bool{"secure.profile.view": true, "entity.info.view": true})).Methods(http.MethodGet)
+	//view := ins.Middleware("cms.content.view", scrt, ViewContent)
+	r.Handle("/content/{key:[0-9]+\\x60[0-9]+}", mw.Handler(http.HandlerFunc(ViewContent))).Methods(http.MethodGet)
 
-	//crty.HandleFunc("/users", kong.ClientMiddleware(http.DefaultClient, clnt, scrt, securityUrl, authorityUrl, GetUsers(tmpl), map[string]bool{"secure.user.search": true})).Methods(http.MethodGet)
-	//crty.HandleFunc("/users/{pagesize:[A-Z][0-9]+}", kong.ClientMiddleware(http.DefaultClient, clnt, scrt, securityUrl, authorityUrl, SearchUsers(tmpl), map[string]bool{"secure.user.search": true})).Methods(http.MethodGet)
-	//crty.HandleFunc("/users/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", kong.ClientMiddleware(http.DefaultClient, clnt, scrt, securityUrl, authorityUrl, SearchUsers(tmpl), map[string]bool{"secure.user.search": true})).Methods(http.MethodGet)
-	//crty.HandleFunc("/users/{key:[0-9]+\\x60[0-9]+}", kong.ClientMiddleware(http.DefaultClient, clnt, scrt, securityUrl, authorityUrl, ViewUser(tmpl), map[string]bool{"secure.user.view": true})).Methods(http.MethodGet)
+	//srch := ins.Middleware("cms.content.search", scrt, SearchContent)
+	r.Handle("/content/{pagesize:[A-Z][0-9]+}", mw.Handler(http.HandlerFunc(SearchContent))).Methods(http.MethodGet)
+	r.Handle("/content/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", mw.Handler(http.HandlerFunc(SearchContent))).Methods(http.MethodGet)
 
-	r.HandleFunc("/resources", clntIns.Middleware(GetResource(tmpl), map[string]bool{"secure.resource.search": true})).Methods(http.MethodGet)
-	r.HandleFunc("/resources/{pagesize:[A-Z][0-9]+}", clntIns.Middleware(SearchResource(tmpl), map[string]bool{"secure.resource.search": true})).Methods(http.MethodGet)
-	r.HandleFunc("/resources/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", clntIns.Middleware(SearchResource(tmpl), map[string]bool{"secure.resource.search": true})).Methods(http.MethodGet)
-	r.HandleFunc("/resources/{key:[0-9]+\\x60[0-9]+}", clntIns.Middleware(ViewResource(tmpl), map[string]bool{"secure.resource.view": true})).Methods(http.MethodGet)
+	//create := ins.Middleware("cms.content.create", scrt, CreateContent)
+	r.Handle("/content", mw.Handler(http.HandlerFunc(CreateContent))).Methods(http.MethodPost)
 
-	return r
+	//update := ins.Middleware("cms.content.update", scrt, UpdateContent)
+	r.Handle("/content", mw.Handler(http.HandlerFunc(UpdateContent))).Methods(http.MethodPut)
+
+	//lst, err := middle.Whitelist(http.DefaultClient, securityUrl, "cms.content.view", scrt)
+
+	//if err != nil {
+	//	panic(err)
+	//}
+
+	corsOpts := cors.New(cors.Options{
+		AllowedOrigins: []string{"*"},
+		AllowedMethods: []string{
+			http.MethodGet,
+			http.MethodPost,
+			http.MethodPut,
+			http.MethodOptions,
+			http.MethodHead,
+		},
+		AllowCredentials: true,
+		AllowedHeaders: []string{
+			"*", //or you can your header key values which you are using in your application
+		},
+	})
+
+	return corsOpts.Handler(r)
 }

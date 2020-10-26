@@ -1,10 +1,11 @@
 module github.com/louisevanderlith/folio
 
-go 1.14
+go 1.13
 
 require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gorilla/mux v1.7.4
-	github.com/louisevanderlith/droxolite v1.14.0
+	github.com/louisevanderlith/droxolite v1.16.1
 	github.com/louisevanderlith/husk v1.7.4
-	github.com/louisevanderlith/kong v1.8.6
+	github.com/rs/cors v1.7.0
 )

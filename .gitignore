@@ -18,3 +18,5 @@ db/*.husk
 
 .DS_Store
 .dart_tool
+
+cmd/cmd
