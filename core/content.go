@@ -9,7 +9,7 @@ import (
 type Content struct {
 	Realm    string
 	Client   string
-	LogoKey  hsk.Key
+	LogoKey  keys.TimeKey
 	Language string //en,af, en-US
 	Banner   Banner
 	SectionA Section
@@ -17,26 +17,6 @@ type Content struct {
 	Info     Information
 	Colour   Colour
 	Contacts []Contact
-}
-
-func NewContent() Content {
-	return Content{
-		Realm:    "",
-		Client:   "",
-		LogoKey:  keys.CrazyKey(),
-		Language: "",
-		Banner: Banner{
-			Background: keys.CrazyKey(),
-			Image:      keys.CrazyKey(),
-			Heading:    "",
-			Subtitle:   "",
-		},
-		SectionA: Section{},
-		SectionB: Section{},
-		Info:     Information{},
-		Colour:   Colour{},
-		Contacts: nil,
-	}
 }
 
 func (o Content) Valid() error {
