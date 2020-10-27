@@ -8,6 +8,7 @@ import (
 	"github.com/louisevanderlith/husk/keys"
 	"log"
 	"net/http"
+	"strings"
 )
 
 func GetContent(w http.ResponseWriter, r *http.Request) {
@@ -29,7 +30,11 @@ func GetContent(w http.ResponseWriter, r *http.Request) {
 func DisplayContent(w http.ResponseWriter, r *http.Request) {
 	token := r.Context().Value("user").(*jwt.Token)
 	claims := token.Claims.(jwt.MapClaims)
-	rec, err := core.GetDisplay("mango", claims["azp"].(string))
+	iss := claims["iss"].(string)
+	realm := iss[strings.LastIndex(iss, "/")+1:]
+	clientId := claims["clientId"].(string)
+
+	rec, err := core.GetDisplay(realm, clientId)
 
 	if err != nil {
 		log.Println(err)

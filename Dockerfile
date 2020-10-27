@@ -17,7 +17,7 @@ RUN CGO_ENABLED="0" go build
 
 FROM scratch
 
-COPY --from=builder /box/cms .
+COPY --from=builder /box/folio .
 
 EXPOSE 8090
 
