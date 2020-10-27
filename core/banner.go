@@ -1,12 +1,12 @@
 package core
 
 import (
-	"github.com/louisevanderlith/husk/keys"
+	"github.com/louisevanderlith/husk/hsk"
 )
 
 type Banner struct {
-	Background keys.TimeKey
-	Image      keys.TimeKey `hsk:"null"`
+	Background hsk.Key
+	Image      hsk.Key `hsk:"null"`
 	Heading    string
 	Subtitle   string
 }

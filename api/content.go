@@ -19,7 +19,7 @@ func FetchDisplay(web *http.Client, host string) (core.Content, error) {
 
 	defer resp.Body.Close()
 
-	result := core.Content{}
+	result := core.NewContent()
 	dec := json.NewDecoder(resp.Body)
 	err = dec.Decode(&result)
 
@@ -36,7 +36,7 @@ func FetchContent(web *http.Client, host string, k hsk.Key) (core.Content, error
 
 	defer resp.Body.Close()
 
-	result := core.Content{}
+	result := core.NewContent()
 	dec := json.NewDecoder(resp.Body)
 	err = dec.Decode(&result)
 
@@ -53,7 +53,7 @@ func FetchAllContent(web *http.Client, host, pagesize string) (records.Page, err
 
 	defer resp.Body.Close()
 
-	result := records.NewResultPage(core.Content{})
+	result := records.NewResultPage(core.NewContent())
 	dec := json.NewDecoder(resp.Body)
 	err = dec.Decode(&result)
 
