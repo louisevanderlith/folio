@@ -16,6 +16,7 @@ type Content struct {
 	SectionB Section
 	Info     Information
 	Colour   Colour
+	Email    string
 	Contacts []Contact
 }
 

@@ -4,6 +4,7 @@
     "Client": "www",
     "LogoKey": "0`0",
     "Language": "en",
+    "Email": "fake@someone.com",
     "Contacts": [
       {
         "Icon": "fa-facebook",
@@ -79,6 +80,7 @@
     "Client": "www",
     "LogoKey": "0`0",
     "Language": "en",
+    "Email": "also@fake.com",
     "Contacts": [
       {
         "Icon": "fa-facebook",
