@@ -1,16 +1,8 @@
-## Mango-CMS
-
-# 1.0.3
-
-* Information toDTO returns populated object
-
-# 1.0.2
-
-* Fixed obj JSON errors
+## Mango-Folio
 
 # 1.0.1
 
-* Added RGB Object, Fixed Colour
+* Fixed Content Model
 
 # 1.0.0
 
