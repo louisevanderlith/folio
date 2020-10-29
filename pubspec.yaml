@@ -1,8 +1,8 @@
-name: mango_cms
-version: 1.0.3
-description: Wrapper for CMS API
-repository: https://github.com/louisevanderlith/cms
-homepage: https://github.com/louisevanderlith/cms
+name: mango_folio
+version: 1.0.0
+description: Wrapper for Folio API
+repository: https://github.com/louisevanderlith/folio
+homepage: https://github.com/louisevanderlith/folio
 environment:
   sdk: '>=2.0.0 < 3.0.0'
 dependencies:
