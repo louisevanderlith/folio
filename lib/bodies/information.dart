@@ -1,4 +1,4 @@
-import 'package:mango_cms/bodies/simpleblock.dart';
+import 'simpleblock.dart';
 
 class Information {
   final String heading;
@@ -8,10 +8,6 @@ class Information {
   Information(this.heading, this.text, this.blocks);
 
   Map<String, dynamic> toJson() {
-    return {
-      "Heading": heading,
-      "Text": text,
-      "Blocks": blocks
-    };
+    return {"Heading": heading, "Text": text, "Blocks": blocks};
   }
 }
