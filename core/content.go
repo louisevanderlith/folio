@@ -8,7 +8,7 @@ import (
 type Content struct {
 	Realm    string
 	Client   string
-	LogoKey  keys.TimeKey
+	LogoKey  *keys.TimeKey
 	Language string //en,af, en-US
 	Banner   Banner
 	SectionA Section

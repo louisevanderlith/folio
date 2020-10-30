@@ -5,8 +5,8 @@ import (
 )
 
 type Banner struct {
-	Background keys.TimeKey
-	Image      keys.TimeKey `hsk:"null"`
+	Background *keys.TimeKey
+	Image      *keys.TimeKey `hsk:"null"`
 	Heading    string
 	Subtitle   string
 }
