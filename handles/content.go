@@ -12,7 +12,7 @@ import (
 )
 
 func GetContent(w http.ResponseWriter, r *http.Request) {
-	results, err := core.GetAllContent(1, 10)
+	results, err := core.Context().GetAllContent(1, 10)
 
 	if err != nil {
 		log.Println("Get Content Error", err)
@@ -34,10 +34,10 @@ func DisplayContent(w http.ResponseWriter, r *http.Request) {
 	realm := iss[strings.LastIndex(iss, "/")+1:]
 	clientId := claims["clientId"].(string)
 
-	rec, err := core.GetDisplay(realm, clientId)
+	rec, err := core.Context().GetDisplay(realm, clientId)
 
 	if err != nil {
-		log.Println(err)
+		log.Println("Get Display Error", err)
 		http.Error(w, "", http.StatusNotFound)
 		return
 	}
@@ -59,7 +59,7 @@ func ViewContent(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rec, err := core.GetContent(key)
+	rec, err := core.Context().GetContent(key)
 
 	if err != nil {
 		log.Println(err)
@@ -76,7 +76,7 @@ func ViewContent(w http.ResponseWriter, r *http.Request) {
 
 func SearchContent(w http.ResponseWriter, r *http.Request) {
 	page, size := drx.GetPageData(r)
-	results, err := core.GetAllContent(page, size)
+	results, err := core.Context().GetAllContent(page, size)
 
 	if err != nil {
 		log.Println(err)
@@ -101,7 +101,7 @@ func CreateContent(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rec, err := obj.Create()
+	k, err := core.Context().CreateContent(obj)
 
 	if err != nil {
 		log.Println("Create Error", err)
@@ -109,10 +109,10 @@ func CreateContent(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = mix.Write(w, mix.JSON(rec))
+	err = mix.Write(w, mix.JSON(k))
 
 	if err != nil {
-		log.Println(err)
+		log.Println("Serve Error", err)
 	}
 }
 
@@ -125,24 +125,24 @@ func UpdateContent(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	body := &core.Content{}
-	err = drx.JSONBody(r, body)
+	body := core.Content{}
+	err = drx.JSONBody(r, &body)
 
 	if err != nil {
-		log.Println(err)
+		log.Println("Bind Error", err)
 		http.Error(w, "", http.StatusBadRequest)
 		return
 	}
 
-	err = body.Update(key)
+	err = core.Context().UpdateContent(key, body)
 
 	if err != nil {
-		log.Println(err)
-		http.Error(w, "", http.StatusNotFound)
+		log.Println("Update Error", err)
+		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
 
-	err = mix.Write(w, mix.JSON(nil))
+	err = mix.Write(w, mix.JSON("Saved"))
 
 	if err != nil {
 		log.Println("Serve Error", err)

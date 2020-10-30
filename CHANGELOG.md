@@ -1,16 +1,16 @@
-## Mango-CMS
+## Mango-Folio
 
 # 1.0.3
 
-* Information toDTO returns populated object
+* Added contacts and logokey fields
 
 # 1.0.2
 
-* Fixed obj JSON errors
+* Fixed old api Url
 
 # 1.0.1
 
-* Added RGB Object, Fixed Colour
+* Fixed Content Model
 
 # 1.0.0
 

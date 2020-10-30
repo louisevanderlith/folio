@@ -15,7 +15,7 @@ func SetupRoutes(issuer, audience string) http.Handler {
 	//cnt := ins.Middleware("cms.content.view", scrt, DisplayContent)
 	r.Handle("/display", mw.Handler(http.HandlerFunc(DisplayContent))).Methods(http.MethodGet)
 
-	r.HandleFunc("/colour/{profile:[a-z]+}", ProfileColour)
+	r.HandleFunc("/colour/{realm:[a-z]+}/{client:[a-z]+}", ProfileColour)
 
 	//get := ins.Middleware("cms.content.search", scrt, GetContent)
 	r.Handle("/content", mw.Handler(http.HandlerFunc(GetContent))).Methods(http.MethodGet)
@@ -31,7 +31,7 @@ func SetupRoutes(issuer, audience string) http.Handler {
 	r.Handle("/content", mw.Handler(http.HandlerFunc(CreateContent))).Methods(http.MethodPost)
 
 	//update := ins.Middleware("cms.content.update", scrt, UpdateContent)
-	r.Handle("/content", mw.Handler(http.HandlerFunc(UpdateContent))).Methods(http.MethodPut)
+	r.Handle("/content/{key:[0-9]+\\x60[0-9]+}", mw.Handler(http.HandlerFunc(UpdateContent))).Methods(http.MethodPut)
 
 	//lst, err := middle.Whitelist(http.DefaultClient, securityUrl, "cms.content.view", scrt)
 

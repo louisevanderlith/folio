@@ -11,28 +11,44 @@ import (
 	"reflect"
 )
 
+type FolioContext interface {
+	GetContent(key hsk.Key) (Content, error)
+	GetAllContent(page, size int) (records.Page, error)
+	GetDisplay(realm, client string) (hsk.Record, error)
+	CreateContent(o Content) (hsk.Key, error)
+	UpdateContent(k hsk.Key, o Content) error
+	Shutdown() error
+}
+
 type context struct {
 	Content husk.Table
 }
 
-var ctx context
+var ctx FolioContext
 
-func CreateContext() {
-	ctx = context{
+func CreateContext() FolioContext {
+	c := context{
 		Content: husk.NewTable(Content{}),
 	}
 
-	seed()
+	c.Seed()
+
+	ctx = c
+	return ctx
 }
 
-func seed() {
+func Context() FolioContext {
+	return ctx
+}
+
+func (c context) Seed() {
 	contents, err := contentSeeds()
 
 	if err != nil {
 		panic(err)
 	}
 
-	err = ctx.Content.Seed(contents)
+	err = c.Content.Seed(contents)
 
 	if err != nil {
 		panic(err)
@@ -57,12 +73,12 @@ func contentSeeds() (collections.Enumerable, error) {
 	return collections.ReadOnlyList(reflect.ValueOf(items)), nil
 }
 
-func Shutdown() {
-	ctx.Content.Save()
+func (c context) Shutdown() error {
+	return c.Content.Save()
 }
 
-func GetContent(key hsk.Key) (Content, error) {
-	rec, err := ctx.Content.FindByKey(key)
+func (c context) GetContent(key hsk.Key) (Content, error) {
+	rec, err := c.Content.FindByKey(key)
 
 	if err != nil {
 		return Content{}, err
@@ -71,10 +87,17 @@ func GetContent(key hsk.Key) (Content, error) {
 	return rec.GetValue().(Content), nil
 }
 
-func GetAllContent(page, size int) (records.Page, error) {
-	return ctx.Content.Find(page, size, op.Everything())
+func (c context) GetAllContent(page, size int) (records.Page, error) {
+	return c.Content.Find(page, size, op.Everything())
 }
 
-func GetDisplay(realm, client string) (hsk.Record, error) {
-	return ctx.Content.FindFirst(byRealmClient(realm, client))
+func (c context) GetDisplay(realm, client string) (hsk.Record, error) {
+	return c.Content.FindFirst(byRealmClient(realm, client))
+}
+
+func (c context) CreateContent(o Content) (hsk.Key, error) {
+	return c.Content.Create(o)
+}
+func (c context) UpdateContent(k hsk.Key, o Content) error {
+	return c.Content.Update(k, o)
 }
