@@ -13,8 +13,8 @@ func main() {
 	audience := flag.String("audience", "folio", "Token target 'aud'")
 	flag.Parse()
 
-	core.CreateContext()
-	defer core.Shutdown()
+	db := core.CreateContext()
+	defer db.Shutdown()
 
 	srvr := &http.Server{
 		ReadTimeout:  time.Second * 15,

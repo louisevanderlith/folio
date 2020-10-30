@@ -1,5 +1,13 @@
 ## Mango-Folio
 
+# 1.0.3
+
+* Added contacts and logokey fields
+
+# 1.0.2
+
+* Fixed old api Url
+
 # 1.0.1
 
 * Fixed Content Model
