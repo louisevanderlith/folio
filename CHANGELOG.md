@@ -1,5 +1,9 @@
 ## Mango-Folio
 
+# 1.0.4
+
+* Added Description and GTag fields to Content
+
 # 1.0.3
 
 * Added contacts and logokey fields

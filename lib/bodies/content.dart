@@ -18,6 +18,8 @@ class Content {
   final Information info;
   final Colour colour;
   final List<Contact> contacts;
+  final String description;
+  final String gtag;
 
   Content(
       this.realm,
@@ -30,7 +32,9 @@ class Content {
       this.sectionB,
       this.info,
       this.colour,
-      this.contacts);
+      this.contacts,
+      this.description,
+      this.gtag);
 
   Map<String, dynamic> toJson() {
     return {
