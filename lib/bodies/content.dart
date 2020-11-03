@@ -48,7 +48,9 @@ class Content {
       "Info": info,
       "Colour": colour,
       "Email": email,
-      "Contacts": contacts
+      "Contacts": contacts,
+      "Description": description,
+      "GTag": gtag
     };
   }
 }
