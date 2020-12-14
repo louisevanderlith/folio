@@ -1,5 +1,9 @@
 ## Mango-Folio
 
+# 1.0.5
+
+* Added fields to JSON body
+
 # 1.0.4
 
 * Added Description and GTag fields to Content

@@ -62,7 +62,7 @@ func ViewContent(w http.ResponseWriter, r *http.Request) {
 	rec, err := core.Context().GetContent(key)
 
 	if err != nil {
-		log.Println(err)
+		log.Println("Get Content Error", err)
 		http.Error(w, "", http.StatusNotFound)
 		return
 	}
